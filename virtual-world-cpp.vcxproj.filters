@@ -37,27 +37,27 @@
       <Filter>Animals</Filter>
     </ClInclude>
     <ClInclude Include="Wolf.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Animals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="World.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coordinates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animal.cpp">
       <Filter>Animals</Filter>
     </ClCompile>
-    <ClCompile Include="Organism.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Wolf.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Organism.cpp">
+      <Filter>Organisms</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinates.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

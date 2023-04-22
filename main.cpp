@@ -3,7 +3,8 @@
 
 int main() {
 	World world(20, 20);
-	while (1) {
+	int i = 10;
+	while (i--) {
 		world.nextTurn();
 	}
 
