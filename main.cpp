@@ -1,10 +1,12 @@
 #include <iostream>
 #include "World.hpp"
 
-int main() {
+int main()
+{
 	World world(20, 20);
-	int i = 10;
-	while (i--) {
+	int i = 10000;
+	while (i--)
+	{
 		world.nextTurn();
 	}
 

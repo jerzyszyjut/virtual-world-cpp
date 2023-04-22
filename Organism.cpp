@@ -1,6 +1,6 @@
 #include "Organism.hpp"
 
-Organism::Organism(int strength, int initiative, int age, Coordinates coordinates, World& world, Species species): m_coordinates(&coordinates), m_world(world)
+Organism::Organism(int strength, int initiative, int age, Coordinates coordinates, World &world, Species species) : m_coordinates(&coordinates), m_world(world)
 {
 	m_strength = strength;
 	m_initiative = initiative;
@@ -9,7 +9,7 @@ Organism::Organism(int strength, int initiative, int age, Coordinates coordinate
 	m_species = species;
 }
 
-Organism::Organism(Organism& other): m_coordinates(other.m_coordinates), m_world(other.m_world)
+Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_world(other.m_world)
 {
 	m_strength = other.m_strength;
 	m_initiative = other.m_initiative;
@@ -47,14 +47,14 @@ Species Organism::getSpecies()
 	return m_species;
 }
 
-Coordinates& Organism::getCoordinates()
+Coordinates &Organism::getCoordinates()
 {
 	return *m_coordinates;
 }
 
-Coordinates& Organism::findClosestFreeSpace()
+Coordinates &Organism::findClosestFreeSpace()
 {
-	Coordinates& closestFreeSpace = *m_coordinates;
+	Coordinates &closestFreeSpace = *m_coordinates;
 	int distance = 0;
 	bool found = false;
 	while (!found)
@@ -84,9 +84,9 @@ Coordinates& Organism::findClosestFreeSpace()
 	return closestFreeSpace;
 }
 
-Coordinates& Organism::findClosestFreeSpace(int distance)
+Coordinates &Organism::findClosestFreeSpace(int distance)
 {
-	Coordinates& closestFreeSpace = *m_coordinates;
+	Coordinates &closestFreeSpace = *m_coordinates;
 	bool found = false;
 	for (int i = m_coordinates->x - distance; i <= m_coordinates->x + distance; i++)
 	{
@@ -111,14 +111,16 @@ Coordinates& Organism::findClosestFreeSpace(int distance)
 	return closestFreeSpace;
 }
 
-void Organism::setCoordinates(Coordinates& newCoordinates)
+void Organism::setCoordinates(Coordinates &newCoordinates)
 {
+	delete m_coordinates;
 	m_coordinates = new Coordinates(newCoordinates);
 }
 
-bool Organism::OrganismComparator::operator()(Organism* first, Organism* second) const
+bool Organism::OrganismComparator::operator()(Organism *first, Organism *second) const
 {
-	if (first->getStrength() == second->getStrength()) {
+	if (first->getStrength() == second->getStrength())
+	{
 		return first->getAge() > second->getAge();
 	}
 	return first->getStrength() < second->getStrength();
