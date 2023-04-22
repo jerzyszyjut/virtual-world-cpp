@@ -130,12 +130,15 @@
     <ClInclude Include="Animal.hpp" />
     <ClInclude Include="Coordinates.hpp" />
     <ClInclude Include="Organism.hpp" />
+    <ClInclude Include="Wolf.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Organism.cpp" />
+    <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

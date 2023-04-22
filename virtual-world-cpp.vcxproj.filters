@@ -36,6 +36,9 @@
     <ClInclude Include="Animal.hpp">
       <Filter>Animals</Filter>
     </ClInclude>
+    <ClInclude Include="Wolf.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="World.cpp">
@@ -49,6 +52,12 @@
     </ClCompile>
     <ClCompile Include="Animal.cpp">
       <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Organism.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Wolf.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

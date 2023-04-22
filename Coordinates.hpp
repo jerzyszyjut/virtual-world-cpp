@@ -4,14 +4,14 @@
 class Coordinates
 {
 public:
+	Coordinates();
 	Coordinates(int x, int y);
-	~Coordinates();
-	int getX();
-	int getY();
-	void setX(int x);
-	void setY(int y);
-private:
-	int m_x, m_y;
-	World* m_world;
+	Coordinates(Coordinates& other);
+	Coordinates(Coordinates&& other);
+	bool operator==(Coordinates& other);
+	bool operator!=(Coordinates& other);
+	Coordinates& operator=(Coordinates& other);
+	Coordinates& operator=(const Coordinates& other);
+	int x, y;
 };
 
