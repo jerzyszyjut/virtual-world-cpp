@@ -7,9 +7,6 @@ class Wolf :
 public:
 	virtual Organism& clone() override;
 	using Animal::Animal;
-
-protected:
-	Species m_species = WOLF;
-	int m_strength = 9, m_initiative = 5;
+	Wolf(COORD coordinates, World& world) : Animal(9, 5, 0, coordinates, world, Species::WOLF) {};
 };
 

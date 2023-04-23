@@ -7,12 +7,12 @@ Organism& Fox::clone()
 	return *newOrganism;
 }
 
-std::string Fox::action()
+void Fox::action()
 {
 	COORD closestFreeSpace = findClosestFreeSpace(1);
 	if (closestFreeSpace.X == this->m_coordinates.X && closestFreeSpace.Y == this->m_coordinates.Y)
 	{
-		return "2";
+		return;
 	}
 	while (1) {
 		int direction = rand() % 4;
@@ -49,5 +49,4 @@ std::string Fox::action()
 			}
 		}
 	}
-	return "3";
 }

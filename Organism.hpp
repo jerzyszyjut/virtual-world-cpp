@@ -1,6 +1,5 @@
 #pragma once
 #include "World.hpp"
-#include <string>
 #include <Windows.h>
 
 enum Species {
@@ -16,6 +15,7 @@ enum Species {
 	GUARANA = 'O',
 	BELLADONNA = 'B',
 	HERACLEUM_SOSNOWSKYI = '@',
+	NONE = ' '
 };
 
 class World;
@@ -25,9 +25,11 @@ class Organism
 public:
 	Organism(int strength, int initiative, int age, COORD coordinates, World& world, Species species);
 	Organism(Organism& other);
+	Organism(Organism&& other);
+	Organism(Organism* other);
 	~Organism();
 
-	virtual std::string action() = 0;
+	virtual void action() = 0;
 	virtual bool collision(COORD newCoordinates) = 0;
 	void draw();
 
@@ -47,8 +49,8 @@ public:
 	};
 
 protected:
-	int m_strength, m_initiative, m_age;
+	int m_strength=0, m_initiative=0, m_age=0;
 	COORD m_coordinates;
 	World& m_world;
-	Species m_species;
+	Species m_species = NONE;
 };

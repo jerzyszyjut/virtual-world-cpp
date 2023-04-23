@@ -7,12 +7,12 @@ Organism& Turtle::clone()
 	return *newOrganism;
 }
 
-std::string Turtle::action()
+void Turtle::action()
 {
-	bool shouldItMove = ((rand() % 100) < 75);
+	bool shouldItMove = ((rand() % 100) < 25);
 	if (shouldItMove)
 	{
-		return Animal::action();
+		Animal::action();
 	}
 }
 
@@ -21,11 +21,11 @@ bool Turtle::collision(COORD coordinates)
 	return Animal::collision(coordinates);
 }
 
-bool Turtle::attack(Organism& other, bool isAttacked)
+FightResult Turtle::attack(Organism& other, bool isAttacked)
 {
 	if (isAttacked && other.getStrength() < 5)
 	{
-		return true;
+		return DRAW;
 	}
 	return Animal::attack(other, isAttacked);
 }

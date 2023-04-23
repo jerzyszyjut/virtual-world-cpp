@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <typeinfo>
 
-std::string Animal::action()
+void Animal::action()
 {
 	int direction = rand() % 4;
 	COORD newPosition = m_coordinates;
@@ -30,7 +30,6 @@ std::string Animal::action()
 			move(newPosition);
 		}
 	}
-	return "Piwo";
 }
 
 bool Animal::collision(COORD newCoordinates)
@@ -45,15 +44,18 @@ bool Animal::collision(COORD newCoordinates)
 		}
 		else
 		{
-			if (attack(other, false))
+			switch (attack(other, false))
 			{
+			case VICTORY:
 				m_world.removeOrganism(other);
 				return true;
-			}
-			else
-			{
+			case DEFEAT:
 				m_world.removeOrganism(*this);
 				return false;
+			case DRAW:
+				return true;
+			default:
+				break;
 			}
 		}
 	}
@@ -62,8 +64,8 @@ bool Animal::collision(COORD newCoordinates)
 
 void Animal::reproduce(Organism& other)
 {
-	COORD closestFreeSpace = findClosestFreeSpace();
-	if (closestFreeSpace.X != -1) {
+	COORD closestFreeSpace = findClosestFreeSpace(1);
+	if (closestFreeSpace.X != m_coordinates.X && closestFreeSpace.Y != m_coordinates.Y) {
 		Organism& newOrganism = clone();
 		newOrganism.setCoordinates(closestFreeSpace);
 		m_world.addOrganism(newOrganism, closestFreeSpace);
@@ -80,21 +82,34 @@ bool Animal::move(COORD newPosition)
 	return false;
 }
 
-bool Animal::attack(Organism& other, bool isAttacked=false)
+FightResult Animal::attack(Organism& other, bool isAttacked = false)
 {
 	Animal* animal = dynamic_cast<Animal*>(&other);
 	if (animal)
 	{
 		if (isAttacked)
 		{
-			return m_strength > other.getStrength();
+			if (m_strength > other.getStrength()) {
+				return VICTORY;
+			}
+			else if (m_strength < other.getStrength())
+			{
+				return DEFEAT;
+			}
 		}
 		else
 		{
-			return m_strength > other.getStrength() && !(animal->attack(*this, true));
+			if (m_strength > other.getStrength() && animal->attack(*this, true) == DRAW)
+			{
+				return DRAW;
+			}
 		}
 	}
-	else {
-		return m_strength > other.getStrength();
+	if (m_strength > other.getStrength()) {
+		return VICTORY;
+	}
+	else if (m_strength < other.getStrength())
+	{
+		return DEFEAT;
 	}
 }

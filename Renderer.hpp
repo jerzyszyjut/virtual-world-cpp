@@ -15,6 +15,7 @@ public:
 	void clearLogs();
 
 private:
+	void renderAutor();
 	void renderLogs();
 	void renderMap();
 	void renderBorder();

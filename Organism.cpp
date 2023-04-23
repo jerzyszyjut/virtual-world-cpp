@@ -16,6 +16,22 @@ Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_worl
 	m_species = other.m_species;
 }
 
+Organism::Organism(Organism&& other): m_coordinates(other.m_coordinates), m_world(other.m_world)
+{
+	m_strength = other.m_strength;
+	m_initiative = other.m_initiative;
+	m_age = other.m_age;
+	m_species = other.m_species;
+}
+
+Organism::Organism(Organism* other) : m_coordinates(other->m_coordinates), m_world(other->m_world)
+{
+	m_strength = other->m_strength;
+	m_initiative = other->m_initiative;
+	m_age = other->m_age;
+	m_species = other->m_species;
+}
+
 Organism::~Organism()
 {
 }

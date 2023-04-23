@@ -3,6 +3,8 @@
 #include <fstream>
 #include <algorithm>
 #include "Wolf.hpp"
+#include "Turtle.hpp"
+#include "Sheep.hpp"
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
@@ -14,10 +16,12 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 {
 	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
-	m_organisms[0][0] = new Wolf(5, 4, 0, COORD{ 0, 0 }, *this, Species::WOLF);
-	m_organisms[0][1] = new Wolf(5, 4, 0, COORD{ 0, 1 }, *this, Species::WOLF);
-	m_organisms[0][2] = new Wolf(5, 4, 0, COORD{ 0, 2 }, *this, Species::WOLF);
-	m_organisms[0][3] = new Wolf(5, 4, 0, COORD{ 0, 3 }, *this, Species::WOLF);
+	m_organisms[0][0] = new Sheep(COORD{ 0, 0 }, *this);
+	m_organisms[0][1] = new Sheep(COORD{ 0, 1 }, *this);
+	m_organisms[0][5] = new Sheep(COORD{ 0, 5 }, *this);
+	m_organisms[0][9] = new Turtle(COORD{ 0, 9 }, *this);
+	m_organisms[10][9] = new Wolf(COORD{ 10, 9 }, *this);
+	m_organisms[10][10] = new Wolf(COORD{ 10, 10 }, *this);
 }
 
 void World::nextTurn()
@@ -36,14 +40,28 @@ void World::nextTurn()
 	std::sort(organisms.begin(), organisms.end(), Organism::OrganismComparator());
 	for (Organism* organism : organisms)
 	{
-		m_renderer->addLog(organism->action());
-		organism->draw();
+		organism->action();
 	}
 	m_turn++;
 }
 
 void World::print()
 {
+	std::vector<Organism*> organisms;
+	for (int i = 0; i < m_world_width; i++)
+	{
+		for (int j = 0; j < m_world_height; j++)
+		{
+			if (m_organisms[i][j] != nullptr)
+			{
+				organisms.push_back(m_organisms[i][j]);
+			}
+		}
+	}
+	for (Organism* organism : organisms)
+	{
+		organism->draw();
+	}
 	m_renderer->render();
 }
 

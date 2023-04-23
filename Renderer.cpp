@@ -1,11 +1,12 @@
 #include "Renderer.hpp"
+#include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
 #include <iostream>
 #include <stdexcept>
 
 #define MAP_START_X 1
-#define MAP_START_Y 1
+#define MAP_START_Y 2
 #define MAP_BORDER_WIDTH 1
 #define MAX_MAP_SIZE 20
 #define MAX_MAP_SIZE_X MAX_MAP_SIZE 
@@ -36,6 +37,8 @@ Renderer::Renderer(int mapWidth, int mapHeight)
 
 void Renderer::render()
 {
+	system("cls");
+	renderAutor();
 	renderBorder();
 	renderMap();
 	renderLogs();
@@ -46,6 +49,7 @@ void Renderer::render()
 
 void Renderer::addLog(std::string log)
 {
+	if(log != "")
 	m_logs.push_back(log);
 }
 
@@ -77,10 +81,18 @@ void Renderer::clearLogs()
 	m_logs = std::vector<std::string>();
 }
 
+void Renderer::renderAutor()
+{
+	COORD coord = { 0, 0 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "Jerzy Szyjut 193064";
+}
+
 void Renderer::renderLogs()
 {
 	int startX = LOGS_START_X, startY = LOGS_START_Y;
-	for (int i = 0; i < m_logs.size(); i++)
+	int maxSize = m_logs.size() > MAX_MAP_SIZE_Y ? MAX_MAP_SIZE_Y : m_logs.size();
+	for (int i = 0; i < maxSize; i++)
 	{
 		COORD coord = { startX, startY + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -111,25 +123,25 @@ void Renderer::renderBorder()
 {
 	for (int i = 0; i < MAX_MAP_SIZE_X + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = {  i, MAP_START_Y - 1 };
+		COORD coord = { MAP_START_X - 1 + i, MAP_START_Y - 1 };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "-";
 	}
 	for (int i = 0; i < MAX_MAP_SIZE_X + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = { i, MAX_MAP_SIZE_Y + 1 };
+		COORD coord = { MAP_START_X - 1 + i, MAP_START_X + MAX_MAP_SIZE_Y + 1 };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "-";
 	}
 	for (int i = 0; i < MAX_MAP_SIZE_Y + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = { MAP_START_X - 1, i };
+		COORD coord = { MAP_START_X - 1, MAP_START_Y - 1 + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "|";
 	}
 	for (int i = 0; i < MAX_MAP_SIZE_Y + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = { MAP_START_X + MAX_MAP_SIZE_X, i };
+		COORD coord = { MAP_START_X + MAX_MAP_SIZE_X, MAP_START_Y - 1 + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "|";
 	}

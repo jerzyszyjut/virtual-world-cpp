@@ -6,9 +6,10 @@ class Turtle :
 {
 public:
     virtual Organism& clone() override;
-	virtual std::string action() override;
+	virtual void action() override;
 	bool collision(COORD coordinates) override;
-	bool attack(Organism& other, bool isAttacked = false);
+	virtual FightResult attack(Organism& other, bool isAttacked) override;
 	using Animal::Animal;
+	Turtle(COORD coordinates, World& world) : Animal(2, 1, 0, coordinates, world, Species::TURTLE) {}
 };
 

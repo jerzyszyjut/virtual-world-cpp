@@ -7,9 +7,6 @@ class Sheep :
 public:
     virtual Organism& clone() override;
     using Animal::Animal;
-
-    protected:
-        Species m_species = SHEEP;
-		int m_strength = 4, m_initiative = 4;
+    Sheep(COORD coordinates, World& world) : Animal(4, 4, 0, coordinates, world, Species::SHEEP) {};
 };
 

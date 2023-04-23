@@ -4,7 +4,7 @@
 int main()
 {
 	World world(20, 20);
-	int i = 5;
+	int i = 1000;
 	while (i--)
 	{
 		world.print();
