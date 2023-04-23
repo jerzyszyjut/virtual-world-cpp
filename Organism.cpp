@@ -1,6 +1,6 @@
 #include "Organism.hpp"
 
-Organism::Organism(int strength, int initiative, int age, COORD coordinates, World &world, Species species) : m_coordinates(coordinates), m_world(world)
+Organism::Organism(int strength, int initiative, int age, COORD coordinates, World& world, Species species) : m_coordinates(coordinates), m_world(world)
 {
 	m_strength = strength;
 	m_initiative = initiative;
@@ -9,7 +9,7 @@ Organism::Organism(int strength, int initiative, int age, COORD coordinates, Wor
 	m_isAlive = true;
 }
 
-Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_world(other.m_world)
+Organism::Organism(Organism& other) : m_coordinates(other.m_coordinates), m_world(other.m_world)
 {
 	m_strength = other.m_strength;
 	m_initiative = other.m_initiative;
@@ -18,7 +18,7 @@ Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_worl
 	m_isAlive = true;
 }
 
-Organism::Organism(Organism&& other): m_coordinates(other.m_coordinates), m_world(other.m_world)
+Organism::Organism(Organism&& other) : m_coordinates(other.m_coordinates), m_world(other.m_world)
 {
 	m_strength = other.m_strength;
 	m_initiative = other.m_initiative;
@@ -103,17 +103,49 @@ COORD Organism::getCoordinates()
 	return m_coordinates;
 }
 
-COORD Organism::findClosestFreeSpace()
+COORD Organism::findClosestFreeSpace(int distance) 
 {
-	COORD closestFreeSpace = m_coordinates;
-	int distance = 0;
+	return findClosestFreeSpace(distance, m_coordinates);
+}
+
+COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
+{
+	COORD closestFreeSpace = coordinates;
 	bool found = false;
-	while (!found)
+	if (distance == 1)
 	{
-		distance++;
-		for (int i = m_coordinates.X - distance; i <= m_coordinates.X + distance; i++)
+		for (int i = coordinates.X - distance; i <= coordinates.X + distance; i++)
 		{
-			for (int j = m_coordinates.Y - distance; j <= m_coordinates.Y + distance; j++)
+			COORD checkedCoordinates{ i, coordinates.Y };
+			if (m_world.isInWorld(checkedCoordinates))
+			{
+				if (m_world.isEmpty(checkedCoordinates))
+				{
+					closestFreeSpace = checkedCoordinates;
+					found = true;
+					break;
+				}
+			}
+		}
+		for (int j = coordinates.Y - distance; j <= coordinates.Y + distance; j++)
+		{
+			COORD checkedCoordinates{ coordinates.X, j};
+			if (m_world.isInWorld(checkedCoordinates))
+			{
+				if (m_world.isEmpty(checkedCoordinates))
+				{
+					closestFreeSpace = checkedCoordinates;
+					found = true;
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = coordinates.X - distance; i <= coordinates.X + distance; i++)
+		{
+			for (int j = coordinates.Y - distance; j <= coordinates.Y + distance; j++)
 			{
 				COORD coordinates{ i, j };
 				if (m_world.isInWorld(coordinates))
@@ -135,67 +167,13 @@ COORD Organism::findClosestFreeSpace()
 	return closestFreeSpace;
 }
 
-COORD Organism::findClosestFreeSpace(int distance)
-{
-	COORD closestFreeSpace = m_coordinates;
-	bool found = false;
-	for (int i = m_coordinates.X - distance; i <= m_coordinates.X + distance; i++)
-	{
-		for (int j = m_coordinates.Y - distance; j <= m_coordinates.Y + distance; j++)
-		{
-			COORD coordinates{ i, j };
-			if (m_world.isInWorld(coordinates))
-			{
-				if (m_world.isEmpty(coordinates))
-				{
-					closestFreeSpace = coordinates;
-					found = true;
-					break;
-				}
-			}
-		}
-		if (found)
-		{
-			break;
-		}
-	}
-	return closestFreeSpace;
-}
-
-COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
-{
-	COORD closestFreeSpace = coordinates;
-	bool found = false;
-	for (int i = coordinates.X - distance; i <= coordinates.X + distance; i++)
-	{
-		for (int j = coordinates.Y - distance; j <= coordinates.Y + distance; j++)
-		{
-			COORD coordinates{ i, j };
-			if (m_world.isInWorld(coordinates))
-			{
-				if (m_world.isEmpty(coordinates))
-				{
-					closestFreeSpace = coordinates;
-					found = true;
-					break;
-				}
-			}
-		}
-		if (found)
-		{
-			break;
-		}
-	}
-	return closestFreeSpace;
-}
-
 void Organism::setCoordinates(COORD newCoordinates)
 {
 	m_coordinates.X = newCoordinates.X;
 	m_coordinates.Y = newCoordinates.Y;
 }
 
-bool Organism::OrganismComparator::operator()(Organism *first, Organism *second) const
+bool Organism::OrganismComparator::operator()(Organism* first, Organism* second) const
 {
 	if (first->getStrength() == second->getStrength())
 	{

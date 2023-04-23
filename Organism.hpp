@@ -49,7 +49,6 @@ public:
 	bool isAlive();
 	Species getSpecies();
 	COORD getCoordinates();
-	COORD findClosestFreeSpace();
 	COORD findClosestFreeSpace(int distance);
 	COORD findClosestFreeSpace(int distance, COORD coordinates);
 	void setCoordinates(COORD newCoordinates);

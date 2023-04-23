@@ -82,7 +82,7 @@ bool Animal::collision(COORD newCoordinates)
 void Animal::reproduce(Organism& other)
 {
 	COORD closestFreeSpace = findClosestFreeSpace(1);
-	if (closestFreeSpace.X != m_coordinates.X && closestFreeSpace.Y != m_coordinates.Y) {
+	if (closestFreeSpace.X != m_coordinates.X || closestFreeSpace.Y != m_coordinates.Y) {
 		Organism& newOrganism = clone();
 		newOrganism.setCoordinates(closestFreeSpace);
 		m_world.addOrganism(newOrganism, closestFreeSpace);
