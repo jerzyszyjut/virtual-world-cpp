@@ -35,6 +35,7 @@ public:
 	int getStrength();
 	int getInitiative();
 	int getAge();
+	void setAge(int age);
 	Species getSpecies();
 	Coordinates& getCoordinates();
 	Coordinates& findClosestFreeSpace();

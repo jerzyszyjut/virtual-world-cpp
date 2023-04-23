@@ -5,7 +5,7 @@
 void Animal::action()
 {
 	int direction = rand() % 4;
-	Coordinates newPosition = *m_coordinates;
+	Coordinates newPosition(m_coordinates->x, m_coordinates->y);
 	switch (direction)
 	{
 	case 0:

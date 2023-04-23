@@ -4,7 +4,6 @@ Organism::Organism(int strength, int initiative, int age, Coordinates coordinate
 {
 	m_strength = strength;
 	m_initiative = initiative;
-	m_coordinates = new Coordinates(coordinates.x, coordinates.y);
 	m_age = age;
 	m_species = species;
 }
@@ -13,7 +12,6 @@ Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_worl
 {
 	m_strength = other.m_strength;
 	m_initiative = other.m_initiative;
-	m_coordinates = new Coordinates(other.m_coordinates->x, other.m_coordinates->y);
 	m_age = other.m_age;
 	m_species = other.m_species;
 }
@@ -40,6 +38,11 @@ int Organism::getInitiative()
 int Organism::getAge()
 {
 	return m_age;
+}
+
+void Organism::setAge(int age)
+{
+	m_age = age;
 }
 
 Species Organism::getSpecies()
@@ -113,8 +116,8 @@ Coordinates &Organism::findClosestFreeSpace(int distance)
 
 void Organism::setCoordinates(Coordinates &newCoordinates)
 {
-	delete m_coordinates;
-	m_coordinates = new Coordinates(newCoordinates);
+	m_coordinates->x = newCoordinates.x;
+	m_coordinates->y = newCoordinates.y;
 }
 
 bool Organism::OrganismComparator::operator()(Organism *first, Organism *second) const
