@@ -44,15 +44,7 @@ bool Animal::collision(Coordinates& newCoordinates)
 		}
 		else
 		{
-			if (attack(other))
-			{
-				m_world.removeOrganism(other);
-			}
-			else
-			{
-				m_world.removeOrganism(*this);
-				return false;
-			}
+			return attack(other);
 		}
 	}
 	return true;
@@ -82,7 +74,12 @@ bool Animal::attack(Organism& other)
 {
 	if (m_strength > other.getStrength())
 	{
+		m_world.removeOrganism(other);
 		return true;
 	}
-	return false;
+	else
+	{
+		m_world.removeOrganism(*this);
+		return false;
+	}
 }
