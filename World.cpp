@@ -4,20 +4,23 @@
 #include <algorithm>
 #include "Wolf.hpp"
 
-World::World(): m_turn(0), m_world_width(0), m_world_height(0)
+World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
-	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+	m_organisms = std::vector<std::vector<Organism *>>(m_world_width, std::vector<Organism *>(m_world_height, nullptr));
 }
 
 World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_height(height)
 {
-	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+	m_organisms = std::vector<std::vector<Organism *>>(m_world_width, std::vector<Organism *>(m_world_height, nullptr));
 	m_organisms[0][0] = new Wolf(5, 4, 0, Coordinates(0, 0), *this, Species::WOLF);
+	m_organisms[0][1] = new Wolf(5, 4, 0, Coordinates(0, 1), *this, Species::WOLF);
+	m_organisms[0][2] = new Wolf(5, 4, 0, Coordinates(0, 2), *this, Species::WOLF);
+	m_organisms[0][3] = new Wolf(5, 4, 0, Coordinates(0, 3), *this, Species::WOLF);
 }
 
 void World::nextTurn()
 {
-	std::vector<Organism*> organisms;
+	std::vector<Organism *> organisms;
 	for (int i = 0; i < m_world_width; i++)
 	{
 		for (int j = 0; j < m_world_height; j++)
@@ -29,7 +32,7 @@ void World::nextTurn()
 		}
 	}
 	std::sort(organisms.begin(), organisms.end(), Organism::OrganismComparator());
-	for(Organism* organism : organisms)
+	for (Organism *organism : organisms)
 	{
 		organism->action();
 	}
@@ -45,7 +48,7 @@ int World::getTurn()
 	return m_turn;
 }
 
-std::vector<std::vector<Organism*>>& World::getOrganisms()
+std::vector<std::vector<Organism *>> &World::getOrganisms()
 {
 	return m_organisms;
 }
@@ -60,7 +63,7 @@ int World::getHeight()
 	return m_world_height;
 }
 
-bool World::isInWorld(Coordinates& coordinates)
+bool World::isInWorld(Coordinates &coordinates)
 {
 	if (coordinates.x < 0 || coordinates.x >= m_world_width || coordinates.y < 0 || coordinates.y >= m_world_height)
 	{
@@ -69,7 +72,7 @@ bool World::isInWorld(Coordinates& coordinates)
 	return true;
 }
 
-bool World::isEmpty(Coordinates& coordinates)
+bool World::isEmpty(Coordinates &coordinates)
 {
 	if (isInWorld(coordinates))
 	{
@@ -82,7 +85,7 @@ bool World::isEmpty(Coordinates& coordinates)
 	throw std::invalid_argument("Coordinates are not in the world");
 }
 
-Organism& World::getOrganism(Coordinates& coordinates)
+Organism &World::getOrganism(Coordinates &coordinates)
 {
 	if (isInWorld(coordinates))
 	{
@@ -94,7 +97,7 @@ Organism& World::getOrganism(Coordinates& coordinates)
 	throw std::invalid_argument("Coordinates are not in the world");
 }
 
-void World::removeOrganism(Organism& organism)
+void World::removeOrganism(Organism &organism)
 {
 	Coordinates coordinates = organism.getCoordinates();
 	if (isInWorld(coordinates))
@@ -105,13 +108,13 @@ void World::removeOrganism(Organism& organism)
 			m_organisms[coordinates.x][coordinates.y] = nullptr;
 		}
 	}
-	else 
+	else
 	{
 		throw std::invalid_argument("Coordinates are not in the world");
 	}
 }
 
-void World::addOrganism(Coordinates& coordinates, Organism& organism)
+void World::addOrganism(Coordinates &coordinates, Organism &organism)
 {
 	if (isInWorld(coordinates))
 	{
@@ -126,7 +129,7 @@ void World::addOrganism(Coordinates& coordinates, Organism& organism)
 	}
 }
 
-void World::moveOrganism(Organism& organism, Coordinates& newCoordinates)
+void World::moveOrganism(Organism &organism, Coordinates &newCoordinates)
 {
 	Coordinates oldCoordinates = organism.getCoordinates();
 	if (isInWorld(oldCoordinates) && isInWorld(newCoordinates))
@@ -179,7 +182,7 @@ void World::loadOrganismsFromFile(std::string filename)
 		int height = std::stoi(line.substr(line.find(';') + 1, line.length()));
 		m_world_width = width;
 		m_world_height = height;
-		m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+		m_organisms = std::vector<std::vector<Organism *>>(m_world_width, std::vector<Organism *>(m_world_height, nullptr));
 		while (std::getline(file, line))
 		{
 			char symbol = line[0];
@@ -189,7 +192,7 @@ void World::loadOrganismsFromFile(std::string filename)
 			int x = std::stoi(line.substr(line.find(';') + 1, line.length()));
 			int y = std::stoi(line.substr(line.find(';') + 1, line.length()));
 			Coordinates coordinates(x, y);
-			
+
 			switch (symbol)
 			{
 			}
