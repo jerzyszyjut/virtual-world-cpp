@@ -6,6 +6,7 @@
 #include "Turtle.hpp"
 #include "Sheep.hpp"
 #include "Fox.hpp"
+#include "Antilopinae.hpp"
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
@@ -21,7 +22,7 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 	m_organisms[0][1] = new Sheep(COORD{ 0, 1 }, *this);
 	m_organisms[0][2] = new Fox(COORD{ 0, 2 }, *this);
 	m_organisms[0][9] = new Turtle(COORD{ 0, 9 }, *this);
-	m_organisms[10][9] = new Wolf(COORD{ 10, 9 }, *this);
+	m_organisms[10][9] = new Antilopinae(COORD{ 10, 9 }, *this);
 	m_organisms[10][10] = new Wolf(COORD{ 10, 10 }, *this);
 }
 

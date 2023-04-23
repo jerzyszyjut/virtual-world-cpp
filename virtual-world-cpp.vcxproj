@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animal.hpp" />
+    <ClInclude Include="Antilopinae.hpp" />
     <ClInclude Include="Fox.hpp" />
     <ClInclude Include="Organism.hpp" />
     <ClInclude Include="Renderer.hpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="Antilopinae.cpp" />
     <ClCompile Include="Fox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />

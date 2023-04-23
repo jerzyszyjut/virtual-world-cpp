@@ -48,6 +48,9 @@
     <ClInclude Include="Renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Antilopinae.hpp">
+      <Filter>Animals</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Antilopinae.cpp">
+      <Filter>Animals</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -37,6 +37,11 @@ bool Animal::collision(COORD newCoordinates)
 	if (!m_world.isEmpty(newCoordinates))
 	{
 		Organism& other = m_world.getOrganism(newCoordinates);
+		if (&other == this)
+		{
+			return false;
+		}
+
 		if (other.getSpecies() == m_species)
 		{
 			reproduce(other);

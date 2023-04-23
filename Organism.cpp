@@ -144,6 +144,33 @@ COORD Organism::findClosestFreeSpace(int distance)
 	return closestFreeSpace;
 }
 
+COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
+{
+	COORD closestFreeSpace = coordinates;
+	bool found = false;
+	for (int i = coordinates.X - distance; i <= coordinates.X + distance; i++)
+	{
+		for (int j = coordinates.Y - distance; j <= coordinates.Y + distance; j++)
+		{
+			COORD coordinates{ i, j };
+			if (m_world.isInWorld(coordinates))
+			{
+				if (m_world.isEmpty(coordinates))
+				{
+					closestFreeSpace = coordinates;
+					found = true;
+					break;
+				}
+			}
+		}
+		if (found)
+		{
+			break;
+		}
+	}
+	return closestFreeSpace;
+}
+
 void Organism::setCoordinates(COORD newCoordinates)
 {
 	m_coordinates.X = newCoordinates.X;
