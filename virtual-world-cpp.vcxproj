@@ -131,6 +131,7 @@
     <ClInclude Include="Antilopinae.hpp" />
     <ClInclude Include="Fox.hpp" />
     <ClInclude Include="Organism.hpp" />
+    <ClInclude Include="Plant.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Sheep.hpp" />
     <ClInclude Include="Turtle.hpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="Fox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sheep.cpp" />
     <ClCompile Include="Turtle.cpp" />

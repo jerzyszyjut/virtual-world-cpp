@@ -51,6 +51,9 @@
     <ClInclude Include="Antilopinae.hpp">
       <Filter>Animals</Filter>
     </ClInclude>
+    <ClInclude Include="Plant.hpp">
+      <Filter>Plants</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="Antilopinae.cpp">
       <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>Plants</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

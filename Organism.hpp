@@ -15,7 +15,13 @@ enum Species {
 	GUARANA = 'O',
 	BELLADONNA = 'B',
 	HERACLEUM_SOSNOWSKYI = '@',
-	NONE = ' '
+};
+
+enum FightResult
+{
+	DEFEAT,
+	VICTORY,
+	DRAW
 };
 
 class World;
@@ -33,6 +39,7 @@ public:
 	virtual bool collision(COORD newCoordinates) = 0;
 	void draw();
 
+	virtual FightResult attack(Organism& other, bool isAttacked);
 	virtual Organism& clone() = 0;
 	int getStrength();
 	int getInitiative();
@@ -46,7 +53,6 @@ public:
 	COORD findClosestFreeSpace(int distance);
 	COORD findClosestFreeSpace(int distance, COORD coordinates);
 	void setCoordinates(COORD newCoordinates);
-
 	struct OrganismComparator {
 		bool operator()(Organism* first, Organism* second) const;
 	};
@@ -60,5 +66,5 @@ protected:
 	bool m_isAlive = true;
 	COORD m_coordinates;
 	World& m_world;
-	Species m_species = NONE;
+	Species m_species;
 };

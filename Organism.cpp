@@ -45,6 +45,24 @@ void Organism::draw()
 	m_world.m_renderer->addMapElement(m_coordinates.X, m_coordinates.Y, m_species);
 }
 
+FightResult Organism::attack(Organism& other, bool isAttacked = false)
+{
+	if (!isAttacked)
+	{
+		if (m_strength > other.getStrength() && other.attack(*this, true) == DRAW)
+		{
+			return DRAW;
+		}
+	}
+	if (m_strength > other.getStrength()) {
+		return VICTORY;
+	}
+	if (m_strength < other.getStrength())
+	{
+		return DEFEAT;
+	}
+}
+
 int Organism::getStrength()
 {
 	return m_strength;

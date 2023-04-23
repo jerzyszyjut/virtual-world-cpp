@@ -107,35 +107,3 @@ bool Animal::move(COORD newPosition)
 	}
 	return false;
 }
-
-FightResult Animal::attack(Organism& other, bool isAttacked = false)
-{
-	Animal* animal = dynamic_cast<Animal*>(&other);
-	if (animal)
-	{
-		if (isAttacked)
-		{
-			if (m_strength > other.getStrength()) {
-				return VICTORY;
-			}
-			else if (m_strength < other.getStrength())
-			{
-				return DEFEAT;
-			}
-		}
-		else
-		{
-			if (m_strength > other.getStrength() && animal->attack(*this, true) == DRAW)
-			{
-				return DRAW;
-			}
-		}
-	}
-	if (m_strength > other.getStrength()) {
-		return VICTORY;
-	}
-	else if (m_strength < other.getStrength())
-	{
-		return DEFEAT;
-	}
-}
