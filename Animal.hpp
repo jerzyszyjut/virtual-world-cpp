@@ -12,5 +12,5 @@ public:
 	virtual Organism& clone() = 0;
 	void reproduce(Organism& other);
 	bool move(Coordinates& newPosition);
-	bool attack(Organism& other);
+	bool attack(Organism& other, bool isAttacked);
 };

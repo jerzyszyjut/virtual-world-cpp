@@ -5,7 +5,7 @@
 void Animal::action()
 {
 	int direction = rand() % 4;
-	Coordinates newPosition(m_coordinates->x, m_coordinates->y);
+	Coordinates newPosition = *m_coordinates;
 	switch (direction)
 	{
 	case 0:
@@ -44,7 +44,16 @@ bool Animal::collision(Coordinates& newCoordinates)
 		}
 		else
 		{
-			return attack(other);
+			if (attack(other, false))
+			{
+				m_world.removeOrganism(other);
+				return true;
+			}
+			else
+			{
+				m_world.removeOrganism(*this);
+				return false;
+			}
 		}
 	}
 	return true;
@@ -70,16 +79,21 @@ bool Animal::move(Coordinates& newPosition)
 	return false;
 }
 
-bool Animal::attack(Organism& other)
+bool Animal::attack(Organism& other, bool isAttacked=false)
 {
-	if (m_strength > other.getStrength())
+	Animal* animal = dynamic_cast<Animal*>(&other);
+	if (animal)
 	{
-		m_world.removeOrganism(other);
-		return true;
+		if (isAttacked)
+		{
+			return m_strength > other.getStrength();
+		}
+		else
+		{
+			return m_strength > other.getStrength() && !(animal->attack(*this, true));
+		}
 	}
-	else
-	{
-		m_world.removeOrganism(*this);
-		return false;
+	else {
+		return m_strength > other.getStrength();
 	}
 }

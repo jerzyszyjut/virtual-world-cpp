@@ -45,6 +45,9 @@
     <ClInclude Include="Fox.hpp">
       <Filter>Animals</Filter>
     </ClInclude>
+    <ClInclude Include="Turtle.hpp">
+      <Filter>Animals</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,9 @@
       <Filter>Animals</Filter>
     </ClCompile>
     <ClCompile Include="Fox.cpp">
+      <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
       <Filter>Animals</Filter>
     </ClCompile>
   </ItemGroup>
