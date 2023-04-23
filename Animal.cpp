@@ -47,10 +47,22 @@ bool Animal::collision(COORD newCoordinates)
 			switch (attack(other, false))
 			{
 			case VICTORY:
-				m_world.removeOrganism(other);
+			{
+				std::string message = "";
+				message += m_species;
+				message += " killed ";
+				message += other.getSpecies();
+				message += " at (";
+				message += std::to_string(other.getCoordinates().X);
+				message += ", ";
+				message += std::to_string(other.getCoordinates().Y);
+				message += ")";
+				m_world.m_renderer->addLog(message);
+				other.die();
 				return true;
+			}
 			case DEFEAT:
-				m_world.removeOrganism(*this);
+				die();
 				return false;
 			case DRAW:
 				return true;
@@ -69,6 +81,15 @@ void Animal::reproduce(Organism& other)
 		Organism& newOrganism = clone();
 		newOrganism.setCoordinates(closestFreeSpace);
 		m_world.addOrganism(newOrganism, closestFreeSpace);
+
+		std::string message = "";
+		message += m_species;
+		message += " reproduced at (";
+		message += std::to_string(closestFreeSpace.X);
+		message += ", ";
+		message += std::to_string(closestFreeSpace.Y);
+		message += ")";
+		m_world.m_renderer->addLog(message);
 	}
 }
 

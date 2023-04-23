@@ -6,6 +6,7 @@ Organism::Organism(int strength, int initiative, int age, COORD coordinates, Wor
 	m_initiative = initiative;
 	m_age = age;
 	m_species = species;
+	m_isAlive = true;
 }
 
 Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_world(other.m_world)
@@ -14,6 +15,7 @@ Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_worl
 	m_initiative = other.m_initiative;
 	m_age = other.m_age;
 	m_species = other.m_species;
+	m_isAlive = true;
 }
 
 Organism::Organism(Organism&& other): m_coordinates(other.m_coordinates), m_world(other.m_world)
@@ -22,6 +24,7 @@ Organism::Organism(Organism&& other): m_coordinates(other.m_coordinates), m_worl
 	m_initiative = other.m_initiative;
 	m_age = other.m_age;
 	m_species = other.m_species;
+	m_isAlive = true;
 }
 
 Organism::Organism(Organism* other) : m_coordinates(other->m_coordinates), m_world(other->m_world)
@@ -30,6 +33,7 @@ Organism::Organism(Organism* other) : m_coordinates(other->m_coordinates), m_wor
 	m_initiative = other->m_initiative;
 	m_age = other->m_age;
 	m_species = other->m_species;
+	m_isAlive = true;
 }
 
 Organism::~Organism()
@@ -59,6 +63,16 @@ int Organism::getAge()
 void Organism::setAge(int age)
 {
 	m_age = age;
+}
+
+void Organism::die()
+{
+	m_isAlive = false;
+}
+
+bool Organism::isAlive()
+{
+	return m_isAlive;
 }
 
 Species Organism::getSpecies()
@@ -142,5 +156,14 @@ bool Organism::OrganismComparator::operator()(Organism *first, Organism *second)
 	{
 		return first->getAge() > second->getAge();
 	}
-	return first->getStrength() < second->getStrength();
+	return first->getStrength() > second->getStrength();
+}
+
+bool Organism::InitiativeOrganismComparator::operator()(Organism* first, Organism* second) const
+{
+	if (first->getInitiative() == second->getInitiative())
+	{
+		return first->getAge() > second->getAge();
+	}
+	return first->getInitiative() > second->getInitiative();
 }

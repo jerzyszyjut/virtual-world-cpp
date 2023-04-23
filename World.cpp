@@ -5,6 +5,7 @@
 #include "Wolf.hpp"
 #include "Turtle.hpp"
 #include "Sheep.hpp"
+#include "Fox.hpp"
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
@@ -18,7 +19,7 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 	m_renderer = new Renderer(m_world_width, m_world_height);
 	m_organisms[0][0] = new Sheep(COORD{ 0, 0 }, *this);
 	m_organisms[0][1] = new Sheep(COORD{ 0, 1 }, *this);
-	m_organisms[0][5] = new Sheep(COORD{ 0, 5 }, *this);
+	m_organisms[0][2] = new Fox(COORD{ 0, 2 }, *this);
 	m_organisms[0][9] = new Turtle(COORD{ 0, 9 }, *this);
 	m_organisms[10][9] = new Wolf(COORD{ 10, 9 }, *this);
 	m_organisms[10][10] = new Wolf(COORD{ 10, 10 }, *this);
@@ -37,11 +38,15 @@ void World::nextTurn()
 			}
 		}
 	}
-	std::sort(organisms.begin(), organisms.end(), Organism::OrganismComparator());
+	std::sort(organisms.begin(), organisms.end(), Organism::InitiativeOrganismComparator());
 	for (Organism* organism : organisms)
 	{
-		organism->action();
+		if (organism->isAlive())
+		{
+			organism->action();
+		}
 	}
+	removeDeadOrganisms();
 	m_turn++;
 }
 
@@ -98,7 +103,7 @@ bool World::isEmpty(COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.X][coordinates.Y] == nullptr)
+		if (m_organisms[coordinates.X][coordinates.Y] == nullptr || !(m_organisms[coordinates.X][coordinates.Y]->isAlive()))
 		{
 			return true;
 		}
@@ -111,7 +116,7 @@ Organism& World::getOrganism(COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.X][coordinates.Y] != nullptr)
+		if (m_organisms[coordinates.X][coordinates.Y] != nullptr && m_organisms[coordinates.X][coordinates.Y]->isAlive())
 		{
 			return *m_organisms[coordinates.X][coordinates.Y];
 		}
@@ -133,6 +138,23 @@ void World::removeOrganism(Organism& organism)
 	else
 	{
 		throw std::invalid_argument("Coordinates are not in the world");
+	}
+}
+
+void World::removeDeadOrganisms()
+{
+	for (int i = 0; i < m_world_width; i++)
+	{
+		for (int j = 0; j < m_world_height; j++)
+		{
+			if (m_organisms[i][j] != nullptr)
+			{
+				if (!m_organisms[i][j]->isAlive())
+				{
+					removeOrganism(*m_organisms[i][j]);
+				}
+			}
+		}
 	}
 }
 

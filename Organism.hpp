@@ -38,6 +38,8 @@ public:
 	int getInitiative();
 	int getAge();
 	void setAge(int age);
+	void die();
+	bool isAlive();
 	Species getSpecies();
 	COORD getCoordinates();
 	COORD findClosestFreeSpace();
@@ -48,8 +50,13 @@ public:
 		bool operator()(Organism* first, Organism* second) const;
 	};
 
+	struct InitiativeOrganismComparator {
+		bool operator()(Organism* first, Organism* second) const;
+	};
+
 protected:
-	int m_strength=0, m_initiative=0, m_age=0;
+	int m_strength = 0, m_initiative = 0, m_age = 0;
+	bool m_isAlive = true;
 	COORD m_coordinates;
 	World& m_world;
 	Species m_species = NONE;

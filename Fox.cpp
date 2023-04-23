@@ -46,6 +46,21 @@ void Fox::action()
 					}
 					break;
 				}
+				else
+				{
+					std::string message = "Fox dodged entering field  at (";
+					message += std::to_string(newPosition.X);
+					message += ", ";
+					message += std::to_string(newPosition.Y);
+					message += ") with ";
+					message += otherOrganism.getSpecies();
+					m_world.m_renderer->addLog(message);
+				}
+			}
+			else
+			{
+				move(newPosition);
+				break;
 			}
 		}
 	}

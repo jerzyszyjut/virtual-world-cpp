@@ -22,6 +22,7 @@ public:
 	bool isEmpty(COORD coordinates);
 	Organism& getOrganism(COORD coordinates);
 	void removeOrganism(Organism& organism);
+	void removeDeadOrganisms();
 	void addOrganism(Organism& organism, COORD coordinates);
 	void moveOrganism(Organism& organism, COORD coordinates);
 	
