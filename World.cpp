@@ -8,6 +8,7 @@
 #include "Fox.hpp"
 #include "Antilopinae.hpp"
 #include "Grass.hpp"
+#include "Dandelion.hpp"
 #include "Guarana.hpp"
 #include "Belladonna.hpp"
 #include "HeracleumSosnowskyi.hpp"
@@ -184,7 +185,7 @@ void World::moveOrganism(Organism& organism, COORD coordinates)
 	if (isInWorld(oldCoordinates) && isInWorld(coordinates))
 	{
 		if (m_organisms[oldCoordinates.X][oldCoordinates.Y] != nullptr)
-		{	
+		{
 			m_organisms[coordinates.X][coordinates.Y] = m_organisms[oldCoordinates.X][oldCoordinates.Y];
 			m_organisms[oldCoordinates.X][oldCoordinates.Y] = nullptr;
 			m_organisms[coordinates.X][coordinates.Y]->setCoordinates(coordinates);
@@ -234,17 +235,83 @@ void World::loadOrganismsFromFile(std::string filename)
 		m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 		while (std::getline(file, line))
 		{
-			char symbol = line[0];
-			int strength = std::stoi(line.substr(line.find(';') + 1, line.length()));
-			int initiative = std::stoi(line.substr(line.find(';') + 1, line.length()));
-			int age = std::stoi(line.substr(line.find(';') + 1, line.length()));
-			int x = std::stoi(line.substr(line.find(';') + 1, line.length()));
-			int y = std::stoi(line.substr(line.find(';') + 1, line.length()));
+			char symbol = std::stoi(line.substr(0, line.find(';')));
+			line = line.substr(line.find(';') + 1, line.length());
+			int strength = std::stoi(line.substr(0, line.find(';')));
+			line = line.substr(line.find(';') + 1, line.length());
+			int initiative = std::stoi(line.substr(0, line.find(';')));
+			line = line.substr(line.find(';') + 1, line.length());
+			int age = std::stoi(line.substr(0, line.find(';')));
+			line = line.substr(line.find(';') + 1, line.length());
+			int x = std::stoi(line.substr(0, line.find(';')));
+			line = line.substr(line.find(';') + 1, line.length());	
+			int y = std::stoi(line.substr(0, line.find(';')));
 			COORD coordinates{ x, y };
 
 			switch (symbol)
 			{
+			case Species::SHEEP:
+			{
+				Sheep* sheep = new Sheep(strength, initiative, age, coordinates, *this, SHEEP);
+				addOrganism(*sheep, coordinates);
+				break;
+			}
+			case Species::FOX:
+			{
+				Fox* fox = new Fox(strength, initiative, age, coordinates, *this, FOX);
+				addOrganism(*fox, coordinates);
+				break;
+			}
+			case Species::TURTLE:
+			{
+				Turtle* turtle = new Turtle(strength, initiative, age, coordinates, *this, TURTLE);
+				addOrganism(*turtle, coordinates);
+				break;
+			}
+			case Species::ANTILOPINAE:
+			{
+				Antilopinae* antilopinae = new Antilopinae(strength, initiative, age, coordinates, *this, ANTILOPINAE);
+				addOrganism(*antilopinae, coordinates);
+				break;
+			}
+			case Species::WOLF:
+			{
+				Wolf* wolf = new Wolf(strength, initiative, age, coordinates, *this, WOLF);
+				addOrganism(*wolf, coordinates);
+				break;
+			}
+			case Species::GRASS:
+			{
+				Grass* grass = new Grass(strength, initiative, age, coordinates, *this, GRASS);
+				addOrganism(*grass, coordinates);
+				break;
+			}
+			case Species::DANDELION:
+			{
+				Dandelion* dandelion = new Dandelion(strength, initiative, age, coordinates, *this, DANDELION);
+				addOrganism(*dandelion, coordinates);
+				break;
+			}
+			case Species::GUARANA:
+			{
+				Guarana* guarana = new Guarana(strength, initiative, age, coordinates, *this, GUARANA);
+				addOrganism(*guarana, coordinates);
+				break;
+			}
+			case Species::BELLADONNA:
+			{
+				Belladonna* belladonna = new Belladonna(strength, initiative, age, coordinates, *this, BELLADONNA);
+				addOrganism(*belladonna, coordinates);
+				break;
+			}
+			case Species::HERACLEUM_SOSNOWSKYI:
+			{
+				HeracleumSosnowskyi* heracleumSosnowskyi = new HeracleumSosnowskyi(strength, initiative, age, coordinates, *this, HERACLEUM_SOSNOWSKYI);
+				addOrganism(*heracleumSosnowskyi, coordinates);
+				break;
+			}
 			}
 		}
+
 	}
 }
