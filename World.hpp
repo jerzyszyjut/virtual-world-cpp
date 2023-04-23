@@ -1,8 +1,9 @@
 #pragma once
 #include "Organism.hpp"
-#include "Coordinates.hpp"
+#include "Renderer.hpp"
 #include <vector>
 #include <string>
+#include <Windows.h>
 
 class Organism;
 
@@ -17,15 +18,17 @@ public:
 	std::vector<std::vector<Organism*>>& getOrganisms();
 	int getWidth();
 	int getHeight();
-	bool isInWorld(Coordinates& coordinates);
-	bool isEmpty(Coordinates& coordinates);
-	Organism& getOrganism(Coordinates& coordinates);
+	bool isInWorld(COORD coordinates);
+	bool isEmpty(COORD coordinates);
+	Organism& getOrganism(COORD coordinates);
 	void removeOrganism(Organism& organism);
-	void addOrganism(Coordinates& coordinates, Organism& organism);
-	void moveOrganism(Organism& organism, Coordinates& newCoordinates);
+	void addOrganism(Organism& organism, COORD coordinates);
+	void moveOrganism(Organism& organism, COORD coordinates);
 	
 	void saveOrganismsToFile(std::string filename);
 	void loadOrganismsFromFile(std::string filename);
+
+	Renderer* m_renderer;
 
 private:
 	int m_turn, m_world_width, m_world_height;

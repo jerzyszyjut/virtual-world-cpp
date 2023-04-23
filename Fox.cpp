@@ -7,28 +7,29 @@ Organism& Fox::clone()
 	return *newOrganism;
 }
 
-void Fox::action()
+std::string Fox::action()
 {
-	if (this->findClosestFreeSpace(1) == *(this->m_coordinates))
+	COORD closestFreeSpace = findClosestFreeSpace(1);
+	if (closestFreeSpace.X == this->m_coordinates.X && closestFreeSpace.Y == this->m_coordinates.Y)
 	{
-		return;
+		return "2";
 	}
 	while (1) {
 		int direction = rand() % 4;
-		Coordinates newPosition(m_coordinates->x, m_coordinates->y);
+		COORD newPosition{m_coordinates.X, m_coordinates.Y};
 		switch (direction)
 		{
 		case 0:
-			newPosition.x--;
+			newPosition.X--;
 			break;
 		case 1:
-			newPosition.x++;
+			newPosition.X++;
 			break;
 		case 2:
-			newPosition.y--;
+			newPosition.Y--;
 			break;
 		case 3:
-			newPosition.y++;
+			newPosition.Y++;
 			break;
 		}
 
@@ -48,4 +49,5 @@ void Fox::action()
 			}
 		}
 	}
+	return "3";
 }

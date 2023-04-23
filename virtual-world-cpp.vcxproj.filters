@@ -30,9 +30,6 @@
     <ClInclude Include="Organism.hpp">
       <Filter>Organisms</Filter>
     </ClInclude>
-    <ClInclude Include="Coordinates.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Animal.hpp">
       <Filter>Animals</Filter>
     </ClInclude>
@@ -47,6 +44,9 @@
     </ClInclude>
     <ClInclude Include="Turtle.hpp">
       <Filter>Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +65,6 @@
     <ClCompile Include="World.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Coordinates.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Sheep.cpp">
       <Filter>Animals</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="Turtle.cpp">
       <Filter>Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

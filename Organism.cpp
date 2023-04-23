@@ -1,6 +1,6 @@
 #include "Organism.hpp"
 
-Organism::Organism(int strength, int initiative, int age, Coordinates coordinates, World &world, Species species) : m_coordinates(&coordinates), m_world(world)
+Organism::Organism(int strength, int initiative, int age, COORD coordinates, World &world, Species species) : m_coordinates(coordinates), m_world(world)
 {
 	m_strength = strength;
 	m_initiative = initiative;
@@ -18,11 +18,11 @@ Organism::Organism(Organism &other) : m_coordinates(other.m_coordinates), m_worl
 
 Organism::~Organism()
 {
-	delete m_coordinates;
 }
 
 void Organism::draw()
 {
+	m_world.m_renderer->addMapElement(m_coordinates.X, m_coordinates.Y, m_species);
 }
 
 int Organism::getStrength()
@@ -50,24 +50,24 @@ Species Organism::getSpecies()
 	return m_species;
 }
 
-Coordinates &Organism::getCoordinates()
+COORD Organism::getCoordinates()
 {
-	return *m_coordinates;
+	return m_coordinates;
 }
 
-Coordinates &Organism::findClosestFreeSpace()
+COORD Organism::findClosestFreeSpace()
 {
-	Coordinates &closestFreeSpace = *m_coordinates;
+	COORD closestFreeSpace = m_coordinates;
 	int distance = 0;
 	bool found = false;
 	while (!found)
 	{
 		distance++;
-		for (int i = m_coordinates->x - distance; i <= m_coordinates->x + distance; i++)
+		for (int i = m_coordinates.X - distance; i <= m_coordinates.X + distance; i++)
 		{
-			for (int j = m_coordinates->y - distance; j <= m_coordinates->y + distance; j++)
+			for (int j = m_coordinates.Y - distance; j <= m_coordinates.Y + distance; j++)
 			{
-				Coordinates coordinates(i, j);
+				COORD coordinates{ i, j };
 				if (m_world.isInWorld(coordinates))
 				{
 					if (m_world.isEmpty(coordinates))
@@ -87,15 +87,15 @@ Coordinates &Organism::findClosestFreeSpace()
 	return closestFreeSpace;
 }
 
-Coordinates &Organism::findClosestFreeSpace(int distance)
+COORD Organism::findClosestFreeSpace(int distance)
 {
-	Coordinates &closestFreeSpace = *m_coordinates;
+	COORD closestFreeSpace = m_coordinates;
 	bool found = false;
-	for (int i = m_coordinates->x - distance; i <= m_coordinates->x + distance; i++)
+	for (int i = m_coordinates.X - distance; i <= m_coordinates.X + distance; i++)
 	{
-		for (int j = m_coordinates->y - distance; j <= m_coordinates->y + distance; j++)
+		for (int j = m_coordinates.Y - distance; j <= m_coordinates.Y + distance; j++)
 		{
-			Coordinates coordinates(i, j);
+			COORD coordinates{ i, j };
 			if (m_world.isInWorld(coordinates))
 			{
 				if (m_world.isEmpty(coordinates))
@@ -114,10 +114,10 @@ Coordinates &Organism::findClosestFreeSpace(int distance)
 	return closestFreeSpace;
 }
 
-void Organism::setCoordinates(Coordinates &newCoordinates)
+void Organism::setCoordinates(COORD newCoordinates)
 {
-	m_coordinates->x = newCoordinates.x;
-	m_coordinates->y = newCoordinates.y;
+	m_coordinates.X = newCoordinates.X;
+	m_coordinates.Y = newCoordinates.Y;
 }
 
 bool Organism::OrganismComparator::operator()(Organism *first, Organism *second) const

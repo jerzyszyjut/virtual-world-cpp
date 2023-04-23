@@ -1,6 +1,7 @@
 #pragma once
 #include "World.hpp"
-#include "Coordinates.hpp"
+#include <string>
+#include <Windows.h>
 
 enum Species {
 	WOLF = 'W',
@@ -17,18 +18,17 @@ enum Species {
 	HERACLEUM_SOSNOWSKYI = '@',
 };
 
-class Coordinates;
 class World;
 
 class Organism
 {
 public:
-	Organism(int strength, int initiative, int age, Coordinates coordinates, World& world, Species species);
+	Organism(int strength, int initiative, int age, COORD coordinates, World& world, Species species);
 	Organism(Organism& other);
 	~Organism();
 
-	virtual void action() = 0;
-	virtual bool collision(Coordinates& newCoordinates) = 0;
+	virtual std::string action() = 0;
+	virtual bool collision(COORD newCoordinates) = 0;
 	void draw();
 
 	virtual Organism& clone() = 0;
@@ -37,10 +37,10 @@ public:
 	int getAge();
 	void setAge(int age);
 	Species getSpecies();
-	Coordinates& getCoordinates();
-	Coordinates& findClosestFreeSpace();
-	Coordinates& findClosestFreeSpace(int distance);
-	void setCoordinates(Coordinates& newCoordinates);
+	COORD getCoordinates();
+	COORD findClosestFreeSpace();
+	COORD findClosestFreeSpace(int distance);
+	void setCoordinates(COORD newCoordinates);
 
 	struct OrganismComparator {
 		bool operator()(Organism* first, Organism* second) const;
@@ -48,7 +48,7 @@ public:
 
 protected:
 	int m_strength, m_initiative, m_age;
-	Coordinates* m_coordinates;
+	COORD m_coordinates;
 	World& m_world;
 	Species m_species;
 };

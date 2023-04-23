@@ -6,6 +6,6 @@ class Fox :
 {
 public:
     virtual Organism& clone() override;
-    virtual void action() override;
+    virtual std::string action() override;
 };
 

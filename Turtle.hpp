@@ -6,8 +6,8 @@ class Turtle :
 {
 public:
     virtual Organism& clone() override;
-	virtual void action() override;
-	bool collision(Coordinates& coordinates) override;
+	virtual std::string action() override;
+	bool collision(COORD coordinates) override;
 	bool attack(Organism& other, bool isAttacked = false);
 	using Animal::Animal;
 };

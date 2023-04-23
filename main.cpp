@@ -4,9 +4,10 @@
 int main()
 {
 	World world(20, 20);
-	int i = 10000;
+	int i = 5;
 	while (i--)
 	{
+		world.print();
 		world.nextTurn();
 	}
 

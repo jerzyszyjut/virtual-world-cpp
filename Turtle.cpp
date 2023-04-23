@@ -7,16 +7,16 @@ Organism& Turtle::clone()
 	return *newOrganism;
 }
 
-void Turtle::action()
+std::string Turtle::action()
 {
 	bool shouldItMove = ((rand() % 100) < 75);
 	if (shouldItMove)
 	{
-		Animal::action();
+		return Animal::action();
 	}
 }
 
-bool Turtle::collision(Coordinates& coordinates)
+bool Turtle::collision(COORD coordinates)
 {
 	return Animal::collision(coordinates);
 }

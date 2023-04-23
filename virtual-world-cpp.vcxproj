@@ -128,9 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animal.hpp" />
-    <ClInclude Include="Coordinates.hpp" />
     <ClInclude Include="Fox.hpp" />
     <ClInclude Include="Organism.hpp" />
+    <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Sheep.hpp" />
     <ClInclude Include="Turtle.hpp" />
     <ClInclude Include="Wolf.hpp" />
@@ -138,10 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
-    <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Fox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sheep.cpp" />
     <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="Wolf.cpp" />

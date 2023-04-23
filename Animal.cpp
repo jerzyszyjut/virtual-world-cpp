@@ -2,23 +2,23 @@
 #include <cstdlib>
 #include <typeinfo>
 
-void Animal::action()
+std::string Animal::action()
 {
 	int direction = rand() % 4;
-	Coordinates newPosition = *m_coordinates;
+	COORD newPosition = m_coordinates;
 	switch (direction)
 	{
 	case 0:
-		newPosition.x--;
+		newPosition.X--;
 		break;
 	case 1:
-		newPosition.x++;
+		newPosition.X++;
 		break;
 	case 2:
-		newPosition.y--;
+		newPosition.Y--;
 		break;
 	case 3:
-		newPosition.y++;
+		newPosition.Y++;
 		break;
 	}
 
@@ -30,9 +30,10 @@ void Animal::action()
 			move(newPosition);
 		}
 	}
+	return "Piwo";
 }
 
-bool Animal::collision(Coordinates& newCoordinates)
+bool Animal::collision(COORD newCoordinates)
 {
 	if (!m_world.isEmpty(newCoordinates))
 	{
@@ -61,15 +62,15 @@ bool Animal::collision(Coordinates& newCoordinates)
 
 void Animal::reproduce(Organism& other)
 {
-	Coordinates closestFreeSpace = findClosestFreeSpace();
-	if (closestFreeSpace.x != -1) {
+	COORD closestFreeSpace = findClosestFreeSpace();
+	if (closestFreeSpace.X != -1) {
 		Organism& newOrganism = clone();
 		newOrganism.setCoordinates(closestFreeSpace);
-		m_world.addOrganism(closestFreeSpace, newOrganism);
+		m_world.addOrganism(newOrganism, closestFreeSpace);
 	}
 }
 
-bool Animal::move(Coordinates& newPosition)
+bool Animal::move(COORD newPosition)
 {
 	if (m_world.isEmpty(newPosition))
 	{

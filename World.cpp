@@ -6,21 +6,23 @@
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
-	m_organisms = std::vector<std::vector<Organism *>>(m_world_width, std::vector<Organism *>(m_world_height, nullptr));
+	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+	m_renderer = new Renderer(m_world_width, m_world_height);
 }
 
 World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_height(height)
 {
-	m_organisms = std::vector<std::vector<Organism *>>(m_world_width, std::vector<Organism *>(m_world_height, nullptr));
-	m_organisms[0][0] = new Wolf(5, 4, 0, Coordinates(0, 0), *this, Species::WOLF);
-	m_organisms[0][1] = new Wolf(5, 4, 0, Coordinates(0, 1), *this, Species::WOLF);
-	m_organisms[0][2] = new Wolf(5, 4, 0, Coordinates(0, 2), *this, Species::WOLF);
-	m_organisms[0][3] = new Wolf(5, 4, 0, Coordinates(0, 3), *this, Species::WOLF);
+	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+	m_renderer = new Renderer(m_world_width, m_world_height);
+	m_organisms[0][0] = new Wolf(5, 4, 0, COORD{ 0, 0 }, *this, Species::WOLF);
+	m_organisms[0][1] = new Wolf(5, 4, 0, COORD{ 0, 1 }, *this, Species::WOLF);
+	m_organisms[0][2] = new Wolf(5, 4, 0, COORD{ 0, 2 }, *this, Species::WOLF);
+	m_organisms[0][3] = new Wolf(5, 4, 0, COORD{ 0, 3 }, *this, Species::WOLF);
 }
 
 void World::nextTurn()
 {
-	std::vector<Organism *> organisms;
+	std::vector<Organism*> organisms;
 	for (int i = 0; i < m_world_width; i++)
 	{
 		for (int j = 0; j < m_world_height; j++)
@@ -32,15 +34,17 @@ void World::nextTurn()
 		}
 	}
 	std::sort(organisms.begin(), organisms.end(), Organism::OrganismComparator());
-	for (Organism *organism : organisms)
+	for (Organism* organism : organisms)
 	{
-		organism->action();
+		m_renderer->addLog(organism->action());
+		organism->draw();
 	}
 	m_turn++;
 }
 
 void World::print()
 {
+	m_renderer->render();
 }
 
 int World::getTurn()
@@ -48,7 +52,7 @@ int World::getTurn()
 	return m_turn;
 }
 
-std::vector<std::vector<Organism *>> &World::getOrganisms()
+std::vector<std::vector<Organism*>>& World::getOrganisms()
 {
 	return m_organisms;
 }
@@ -63,20 +67,20 @@ int World::getHeight()
 	return m_world_height;
 }
 
-bool World::isInWorld(Coordinates &coordinates)
+bool World::isInWorld(COORD coordinates)
 {
-	if (coordinates.x < 0 || coordinates.x >= m_world_width || coordinates.y < 0 || coordinates.y >= m_world_height)
+	if (coordinates.X < 0 || coordinates.X >= m_world_width || coordinates.Y < 0 || coordinates.Y >= m_world_height)
 	{
 		return false;
 	}
 	return true;
 }
 
-bool World::isEmpty(Coordinates &coordinates)
+bool World::isEmpty(COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.x][coordinates.y] == nullptr)
+		if (m_organisms[coordinates.X][coordinates.Y] == nullptr)
 		{
 			return true;
 		}
@@ -85,27 +89,27 @@ bool World::isEmpty(Coordinates &coordinates)
 	throw std::invalid_argument("Coordinates are not in the world");
 }
 
-Organism &World::getOrganism(Coordinates &coordinates)
+Organism& World::getOrganism(COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.x][coordinates.y] != nullptr)
+		if (m_organisms[coordinates.X][coordinates.Y] != nullptr)
 		{
-			return *m_organisms[coordinates.x][coordinates.y];
+			return *m_organisms[coordinates.X][coordinates.Y];
 		}
 	}
 	throw std::invalid_argument("Coordinates are not in the world");
 }
 
-void World::removeOrganism(Organism &organism)
+void World::removeOrganism(Organism& organism)
 {
-	Coordinates coordinates = organism.getCoordinates();
+	COORD coordinates = organism.getCoordinates();
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.x][coordinates.y] != nullptr)
+		if (m_organisms[coordinates.X][coordinates.Y] != nullptr)
 		{
-			delete m_organisms[coordinates.x][coordinates.y];
-			m_organisms[coordinates.x][coordinates.y] = nullptr;
+			delete m_organisms[coordinates.X][coordinates.Y];
+			m_organisms[coordinates.X][coordinates.Y] = nullptr;
 		}
 	}
 	else
@@ -114,13 +118,13 @@ void World::removeOrganism(Organism &organism)
 	}
 }
 
-void World::addOrganism(Coordinates &coordinates, Organism &organism)
+void World::addOrganism(Organism& organism, COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.x][coordinates.y] == nullptr)
+		if (m_organisms[coordinates.X][coordinates.Y] == nullptr)
 		{
-			m_organisms[coordinates.x][coordinates.y] = &organism;
+			m_organisms[coordinates.X][coordinates.Y] = &organism;
 		}
 	}
 	else
@@ -129,16 +133,16 @@ void World::addOrganism(Coordinates &coordinates, Organism &organism)
 	}
 }
 
-void World::moveOrganism(Organism &organism, Coordinates &newCoordinates)
+void World::moveOrganism(Organism& organism, COORD coordinates)
 {
-	Coordinates oldCoordinates = organism.getCoordinates();
-	if (isInWorld(oldCoordinates) && isInWorld(newCoordinates))
+	COORD oldCoordinates = organism.getCoordinates();
+	if (isInWorld(oldCoordinates) && isInWorld(coordinates))
 	{
-		if (m_organisms[oldCoordinates.x][oldCoordinates.y] != nullptr)
-		{
-			m_organisms[newCoordinates.x][newCoordinates.y] = m_organisms[oldCoordinates.x][oldCoordinates.y];
-			m_organisms[oldCoordinates.x][oldCoordinates.y] = nullptr;
-			m_organisms[newCoordinates.x][newCoordinates.y]->setCoordinates(newCoordinates);
+		if (m_organisms[oldCoordinates.X][oldCoordinates.Y] != nullptr)
+		{	
+			m_organisms[coordinates.X][coordinates.Y] = m_organisms[oldCoordinates.X][oldCoordinates.Y];
+			m_organisms[oldCoordinates.X][oldCoordinates.Y] = nullptr;
+			m_organisms[coordinates.X][coordinates.Y]->setCoordinates(coordinates);
 		}
 	}
 	else
@@ -163,8 +167,8 @@ void World::saveOrganismsToFile(std::string filename)
 					file << m_organisms[i][j]->getStrength() << ";";
 					file << m_organisms[i][j]->getInitiative() << ";";
 					file << m_organisms[i][j]->getAge() << ";";
-					file << m_organisms[i][j]->getCoordinates().x << ";";
-					file << m_organisms[i][j]->getCoordinates().y << std::endl;
+					file << m_organisms[i][j]->getCoordinates().X << ";";
+					file << m_organisms[i][j]->getCoordinates().Y << std::endl;
 				}
 			}
 		}
@@ -182,7 +186,7 @@ void World::loadOrganismsFromFile(std::string filename)
 		int height = std::stoi(line.substr(line.find(';') + 1, line.length()));
 		m_world_width = width;
 		m_world_height = height;
-		m_organisms = std::vector<std::vector<Organism *>>(m_world_width, std::vector<Organism *>(m_world_height, nullptr));
+		m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 		while (std::getline(file, line))
 		{
 			char symbol = line[0];
@@ -191,7 +195,7 @@ void World::loadOrganismsFromFile(std::string filename)
 			int age = std::stoi(line.substr(line.find(';') + 1, line.length()));
 			int x = std::stoi(line.substr(line.find(';') + 1, line.length()));
 			int y = std::stoi(line.substr(line.find(';') + 1, line.length()));
-			Coordinates coordinates(x, y);
+			COORD coordinates{ x, y };
 
 			switch (symbol)
 			{
