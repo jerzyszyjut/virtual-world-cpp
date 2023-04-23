@@ -66,6 +66,9 @@
     <ClInclude Include="Belladonna.hpp">
       <Filter>Plants</Filter>
     </ClInclude>
+    <ClInclude Include="HeracleumSosnowskyi.hpp">
+      <Filter>Plants</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -111,6 +114,9 @@
       <Filter>Plants</Filter>
     </ClCompile>
     <ClCompile Include="Belladonna.cpp">
+      <Filter>Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="HeracleumSosnowskyi.cpp">
       <Filter>Plants</Filter>
     </ClCompile>
   </ItemGroup>

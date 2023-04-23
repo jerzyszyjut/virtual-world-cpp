@@ -134,6 +134,7 @@
     <ClInclude Include="Fox.hpp" />
     <ClInclude Include="Grass.hpp" />
     <ClInclude Include="Guarana.hpp" />
+    <ClInclude Include="HeracleumSosnowskyi.hpp" />
     <ClInclude Include="Organism.hpp" />
     <ClInclude Include="Plant.hpp" />
     <ClInclude Include="Renderer.hpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Fox.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Guarana.cpp" />
+    <ClCompile Include="HeracleumSosnowskyi.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
     <ClCompile Include="Plant.cpp" />
