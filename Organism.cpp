@@ -49,7 +49,7 @@ FightResult Organism::attack(Organism& other, bool isAttacked = false)
 {
 	if (!isAttacked)
 	{
-		if (m_strength > other.getStrength() && other.attack(*this, true) == DRAW)
+		if (other.attack(*this, true) == DRAW && m_strength > other.getStrength())
 		{
 			return DRAW;
 		}
@@ -66,6 +66,11 @@ FightResult Organism::attack(Organism& other, bool isAttacked = false)
 int Organism::getStrength()
 {
 	return m_strength;
+}
+
+void Organism::setStrength(int strength)
+{
+	m_strength = strength;
 }
 
 int Organism::getInitiative()
@@ -110,7 +115,7 @@ COORD Organism::findClosestFreeSpace(int distance)
 
 COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
 {
-	COORD closestFreeSpace = coordinates;
+	COORD closestFreeSpace{ coordinates.X, coordinates.Y };
 	bool found = false;
 	if (distance == 1)
 	{
@@ -121,9 +126,7 @@ COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
 			{
 				if (m_world.isEmpty(checkedCoordinates))
 				{
-					closestFreeSpace = checkedCoordinates;
-					found = true;
-					break;
+					return checkedCoordinates;
 				}
 			}
 		}
@@ -134,9 +137,7 @@ COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
 			{
 				if (m_world.isEmpty(checkedCoordinates))
 				{
-					closestFreeSpace = checkedCoordinates;
-					found = true;
-					break;
+					return checkedCoordinates;
 				}
 			}
 		}
@@ -147,24 +148,18 @@ COORD Organism::findClosestFreeSpace(int distance, COORD coordinates)
 		{
 			for (int j = coordinates.Y - distance; j <= coordinates.Y + distance; j++)
 			{
-				COORD coordinates{ i, j };
-				if (m_world.isInWorld(coordinates))
+				COORD checkedCoordinates{ i, j };
+				if (m_world.isInWorld(checkedCoordinates))
 				{
-					if (m_world.isEmpty(coordinates))
+					if (m_world.isEmpty(checkedCoordinates))
 					{
-						closestFreeSpace = coordinates;
-						found = true;
-						break;
+						return checkedCoordinates;
 					}
 				}
 			}
-			if (found)
-			{
-				break;
-			}
 		}
 	}
-	return closestFreeSpace;
+	return coordinates;
 }
 
 void Organism::setCoordinates(COORD newCoordinates)

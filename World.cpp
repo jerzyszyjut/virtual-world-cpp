@@ -7,6 +7,9 @@
 #include "Sheep.hpp"
 #include "Fox.hpp"
 #include "Antilopinae.hpp"
+#include "Grass.hpp"
+#include "Guarana.hpp"
+#include "Belladonna.hpp"
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
@@ -18,12 +21,8 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 {
 	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
-	m_organisms[0][0] = new Sheep(COORD{ 0, 0 }, *this);
-	m_organisms[0][1] = new Sheep(COORD{ 0, 1 }, *this);
-	m_organisms[0][2] = new Fox(COORD{ 0, 2 }, *this);
-	m_organisms[0][9] = new Turtle(COORD{ 0, 9 }, *this);
-	m_organisms[10][9] = new Antilopinae(COORD{ 10, 9 }, *this);
-	m_organisms[10][10] = new Wolf(COORD{ 10, 10 }, *this);
+	m_organisms[0][0] = new Sheep({ 0, 0 }, *this);
+	m_organisms[0][1] = new Belladonna({ 0, 1 }, *this);
 }
 
 void World::nextTurn()

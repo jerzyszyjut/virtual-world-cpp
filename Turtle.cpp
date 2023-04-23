@@ -28,5 +28,5 @@ FightResult Turtle::attack(Organism& other, bool isAttacked)
 		std::string message = this->getSpecies() + " defended itself from " + other.getSpecies();
 		return DRAW;
 	}
-	return Animal::attack(other, isAttacked);
+	return Organism::attack(other, isAttacked);
 }

@@ -42,6 +42,7 @@ public:
 	virtual FightResult attack(Organism& other, bool isAttacked);
 	virtual Organism& clone() = 0;
 	int getStrength();
+	void setStrength(int strength);
 	int getInitiative();
 	int getAge();
 	void setAge(int age);

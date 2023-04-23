@@ -129,7 +129,11 @@
   <ItemGroup>
     <ClInclude Include="Animal.hpp" />
     <ClInclude Include="Antilopinae.hpp" />
+    <ClInclude Include="Belladonna.hpp" />
+    <ClInclude Include="Dandelion.hpp" />
     <ClInclude Include="Fox.hpp" />
+    <ClInclude Include="Grass.hpp" />
+    <ClInclude Include="Guarana.hpp" />
     <ClInclude Include="Organism.hpp" />
     <ClInclude Include="Plant.hpp" />
     <ClInclude Include="Renderer.hpp" />
@@ -141,7 +145,11 @@
   <ItemGroup>
     <ClCompile Include="Animal.cpp" />
     <ClCompile Include="Antilopinae.cpp" />
+    <ClCompile Include="Belladonna.cpp" />
+    <ClCompile Include="Dandelion.cpp" />
     <ClCompile Include="Fox.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Guarana.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
     <ClCompile Include="Plant.cpp" />

@@ -54,6 +54,18 @@
     <ClInclude Include="Plant.hpp">
       <Filter>Plants</Filter>
     </ClInclude>
+    <ClInclude Include="Grass.hpp">
+      <Filter>Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Dandelion.hpp">
+      <Filter>Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Guarana.hpp">
+      <Filter>Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Belladonna.hpp">
+      <Filter>Plants</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,6 +99,18 @@
       <Filter>Animals</Filter>
     </ClCompile>
     <ClCompile Include="Plant.cpp">
+      <Filter>Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Dandelion.cpp">
+      <Filter>Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Guarana.cpp">
+      <Filter>Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Belladonna.cpp">
       <Filter>Plants</Filter>
     </ClCompile>
   </ItemGroup>

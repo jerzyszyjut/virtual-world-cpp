@@ -5,22 +5,12 @@ void Plant::action()
 	bool willSeed = (rand() % 100) < 10;
 	if (willSeed)
 	{
-		int direction = rand() % 4;
-		COORD newPosition = m_coordinates;
-		switch (direction)
+		COORD newPlantPosition = findClosestFreeSpace(1);
+		if (m_world.isEmpty(newPlantPosition))
 		{
-		case 0:
-			newPosition.X--;
-			break;
-		case 1:
-			newPosition.X++;
-			break;
-		case 2:
-			newPosition.Y--;
-			break;
-		case 3:
-			newPosition.Y++;
-			break;
+			Organism& newPlant = this->clone();
+			newPlant.setCoordinates(newPlantPosition);
+			m_world.addOrganism(newPlant, newPlantPosition);
 		}
 	}
 }
@@ -32,5 +22,5 @@ bool Plant::collision(COORD newCoordinates)
 
 FightResult Plant::attack(Organism& other, bool isAttacked)
 {
-	return FightResult();
+	return this->getStrength() > other.getStrength() ? VICTORY : DEFEAT;
 }
