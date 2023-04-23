@@ -22,11 +22,11 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 {
 	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
-	m_organisms[0][0] = new Sheep({ 0, 0 }, *this);
-	m_organisms[5][1] = new Sheep({ 5, 1 }, *this);
-	m_organisms[5][2] = new Sheep({ 5, 2 }, *this);
-	m_organisms[5][3] = new Sheep({ 5, 3 }, *this);
-	m_organisms[5][4] = new Sheep({ 5, 4 }, *this);
+	m_organisms[0][0] = new Antilopinae({ 0, 0 }, *this);
+	m_organisms[5][1] = new Antilopinae({ 5, 1 }, *this);
+	m_organisms[5][2] = new Antilopinae({ 5, 2 }, *this);
+	m_organisms[5][3] = new Antilopinae({ 5, 3 }, *this);
+	m_organisms[5][4] = new Antilopinae({ 5, 4 }, *this);
 	m_organisms[0][1] = new HeracleumSosnowskyi({ 0, 1 }, *this);
 }
 

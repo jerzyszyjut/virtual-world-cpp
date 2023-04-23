@@ -66,9 +66,21 @@ bool Animal::collision(COORD newCoordinates)
 				other.die();
 				return true;
 			}
-			case DEFEAT:
+			case DEFEAT: {
+				std::string message = "";
+				message += m_species;
+				message += " was killed by ";
+				message += other.getSpecies();
+				message += " at (";
+				message += std::to_string(other.getCoordinates().X);
+				message += ", ";
+				message += std::to_string(other.getCoordinates().Y);
+				message += ")";
+				m_world.m_renderer->addLog(message);
 				die();
 				return false;
+
+			}
 			case DRAW:
 				return true;
 			default:
