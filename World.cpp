@@ -27,6 +27,9 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 	m_renderer = new Renderer(m_world_width, m_world_height);
 	m_player = new Human({ 0, 0 }, *this);
 	(*m_organisms)[0][0] = m_player;
+	(*m_organisms)[5][5] = new Turtle({5, 5}, *this);
+	(*m_organisms)[7][7] = new Turtle({7, 7}, *this);
+	(*m_organisms)[9][9] = new Turtle({9, 9}, *this);
 }
 
 void World::nextTurn()
@@ -135,6 +138,10 @@ void World::removeOrganism(Organism& organism)
 	{
 		if ((*m_organisms)[coordinates.X][coordinates.Y] != nullptr)
 		{
+			if ((*m_organisms)[coordinates.X][coordinates.Y]->getSpecies() == HUMAN)
+			{
+				m_player = nullptr;
+			}
 			delete (*m_organisms)[coordinates.X][coordinates.Y];
 			(*m_organisms)[coordinates.X][coordinates.Y] = nullptr;
 		}
@@ -192,6 +199,22 @@ void World::moveOrganism(Organism& organism, COORD coordinates)
 	else
 	{
 		throw std::invalid_argument("Coordinates are not in the world");
+	}
+}
+
+void World::movePlayer(Direction direction)
+{
+	if (m_player != nullptr)
+	{
+		return m_player->action(direction);
+	}
+}
+
+void World::usePlayerAbility()
+{
+	if (m_player != nullptr)
+	{
+		((Human*)m_player)->useAbility();
 	}
 }
 

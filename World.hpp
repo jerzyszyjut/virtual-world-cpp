@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 class Organism;
+enum Direction;
 
 class World
 {
@@ -25,6 +26,8 @@ public:
 	void removeDeadOrganisms();
 	void addOrganism(Organism& organism, COORD coordinates);
 	void moveOrganism(Organism& organism, COORD coordinates);
+	void movePlayer(Direction direction);
+	void usePlayerAbility();
 	
 	void saveOrganismsToFile(std::string filename);
 	void loadOrganismsFromFile(std::string filename);

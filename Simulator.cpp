@@ -7,10 +7,11 @@
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
-#define KEY_RIGHT 224
+#define KEY_RIGHT 77
 #define ESCAPE 27
 #define KEY_S 115
 #define KEY_L 108
+#define KEY_SPACE 32
 
 
 void Simulator::loadFromFile()
@@ -79,14 +80,16 @@ void Simulator::run()
 			switch (character)
 			{
 			case KEY_UP:
+				world.movePlayer(UP);
 				break;
 			case KEY_DOWN:
+				world.movePlayer(DOWN);
 				break;
 			case KEY_LEFT:
+				world.movePlayer(LEFT);
 				break;
 			case KEY_RIGHT:
-				break;
-			default:
+				world.movePlayer(RIGHT);
 				break;
 			}
 			world.nextTurn();
@@ -103,6 +106,9 @@ void Simulator::run()
 				break;
 			case KEY_S:
 				saveToFile();
+				break;
+			case KEY_SPACE:
+				world.usePlayerAbility();
 				break;
 			default:
 				break;
