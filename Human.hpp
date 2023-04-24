@@ -4,6 +4,8 @@
 #define HUMAN_INITIATIVE 4
 #define COOLDOWN 5
 #define ABILITY_LENGTH 5
+#define DEFAULT_HUMAN_X_COORD 0
+#define DEFAULT_HUMAN_Y_COORD 0
 
 class Human :
     public Animal

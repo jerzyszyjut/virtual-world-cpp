@@ -8,7 +8,7 @@ Organism& Dandelion::clone()
 
 void Dandelion::action(Direction direction)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < DANDELION_SEED_TRIES; i++)
 	{
 		Plant::action(direction);
 	}

@@ -11,7 +11,7 @@ FightResult Guarana::attack(Organism& other, bool isAttacked)
 	FightResult result = other.attack(*this, true);
 	if (result == VICTORY)
 	{
-		other.setStrength(other.getStrength() + 3);
+		other.setStrength(other.getStrength() + GUARANA_STRENGTH_BOOST);
 	}
 	return result;
 }

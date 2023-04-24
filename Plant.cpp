@@ -2,7 +2,7 @@
 
 void Plant::action(Direction direction)
 {
-	bool willSeed = (rand() % 100) < 10;
+	bool willSeed = (rand() % 100) < PLANT_SEED_CHANCE_PERCENT;
 	if (willSeed)
 	{
 		COORD newPlantPosition = findClosestFreeSpace(1);

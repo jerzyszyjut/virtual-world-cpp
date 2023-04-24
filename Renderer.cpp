@@ -15,6 +15,7 @@
 #define LOGS_START_Y 1
 #define LEGEND_START_X 1
 #define LEGEND_START_Y MAP_START_Y + MAX_MAP_SIZE_Y + MAP_BORDER_WIDTH * 2
+#define LEGEND_SECOND_COLUMN_OFFEST 40
 
 Renderer::Renderer(int mapWidth, int mapHeight)
 {
@@ -168,40 +169,40 @@ void Renderer::renderLegend(int cooldown)
 	{
 		std::cout << "Ability on cooldown for: " << -cooldown;
 	}
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "H - Human";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 1 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 1 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "S - Sheep";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 2 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 2 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "W - Wolf";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 3 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 3 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "F - Fox";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 4 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 4 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "T - Turtle";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 5 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 5 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "A - Antelope";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 6 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 6 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "C - CyberSheep";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 7 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 7 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "G - Grass";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 8 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 8 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "D - Dandelion";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 9 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 9 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "O - Guarana";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 10 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 10 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "B - Belladonna";
-	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 11 };
+	coord = { LEGEND_START_X + LEGEND_SECOND_COLUMN_OFFEST, LEGEND_START_Y + 11 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "@ - Heracleum Sosnowskyi";
 }
