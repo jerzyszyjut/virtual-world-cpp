@@ -8,7 +8,7 @@ Organism& Turtle::clone()
 
 void Turtle::action(Direction direction)
 {
-	bool shouldItMove = ((rand() % 100) < 25);
+	bool shouldItMove = ((rand() % 100) <= TURTLE_MOVE_CHANGE_PERCENT);
 	if (shouldItMove)
 	{
 		Animal::action(direction);
@@ -22,7 +22,7 @@ bool Turtle::collision(COORD coordinates)
 
 FightResult Turtle::attack(Organism& other, bool isAttacked)
 {
-	if (isAttacked && other.getStrength() < 5)
+	if (isAttacked && other.getStrength() < TURTLE_DEFENCE_STRENGTH)
 	{
 		std::string message = this->getSpecies() + " defended itself from " + other.getSpecies();
 		return DRAW;

@@ -6,7 +6,7 @@ void Animal::action(Direction direction)
 {
 	if (direction == Direction::NONE)
 	{
-		direction = static_cast<Direction>(rand() % 4);
+		direction = static_cast<Direction>(rand() % DIRECTION_COUNT);
 	}
 
 	COORD newPosition = m_coordinates;

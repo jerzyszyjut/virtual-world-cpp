@@ -2,6 +2,9 @@
 #include "World.hpp"
 #include <Windows.h>
 
+#define DIRECTION_COUNT 4
+#define DEFAULT_AGE 0
+
 enum Species {
 	WOLF = 'W',
 	SHEEP = 'S',
@@ -70,7 +73,7 @@ public:
 	};
 
 protected:
-	int m_strength = 0, m_initiative = 0, m_age = 0;
+	int m_strength, m_initiative, m_age;
 	bool m_isAlive = true;
 	COORD m_coordinates;
 	World& m_world;

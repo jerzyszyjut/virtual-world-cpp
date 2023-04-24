@@ -14,20 +14,20 @@ void Fox::action(Direction direction)
 		return;
 	}
 	while (1) {
-		int direction = rand() % 4;
+		int direction = rand() % DIRECTION_COUNT;
 		COORD newPosition{m_coordinates.X, m_coordinates.Y};
 		switch (direction)
 		{
-		case 0:
+		case LEFT:
 			newPosition.X--;
 			break;
-		case 1:
+		case RIGHT:
 			newPosition.X++;
 			break;
-		case 2:
+		case UP:
 			newPosition.Y--;
 			break;
-		case 3:
+		case DOWN:
 			newPosition.Y++;
 			break;
 		}

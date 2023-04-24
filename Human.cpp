@@ -10,7 +10,7 @@ void Human::action(Direction direction)
 {
 	if (m_cooldown == 1)
 	{
-		m_cooldown = -5;
+		m_cooldown = -COOLDOWN;
 	}
 	else if (m_cooldown > 0)
 	{
@@ -67,6 +67,6 @@ void Human::useAbility()
 {
 	if (m_cooldown == 0)
 	{
-		m_cooldown = 5;
+		m_cooldown = ABILITY_LENGTH;
 	}
 }

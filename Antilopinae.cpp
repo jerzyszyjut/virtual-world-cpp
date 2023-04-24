@@ -9,21 +9,21 @@ Organism& Antilopinae::clone()
 void Antilopinae::action(Direction direction)
 {
 	COORD newPosition = m_coordinates;
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < ANTILOPINAE_MOVES; i++)
 	{
-		int direction = rand() % 4;
+		int direction = rand() % DIRECTION_COUNT;
 		switch (direction)
 		{
-		case 0:
+		case LEFT:
 			newPosition.X--;
 			break;
-		case 1:
+		case RIGHT:
 			newPosition.X++;
 			break;
-		case 2:
+		case UP:
 			newPosition.Y--;
 			break;
-		case 3:
+		case DOWN:
 			newPosition.Y++;
 			break;
 		}
@@ -45,7 +45,7 @@ bool Antilopinae::collision(COORD newCoordinates)
 	{
 		if (!m_world.isEmpty(newCoordinates))
 		{
-			int didEscape = (rand() % 100 <= 50);
+			int didEscape = (rand() % 100 <= ANTILOPINAE_DODGE_CHANCE_PERCENT);
 			if (didEscape == 0)
 			{
 				std::string message = "";
