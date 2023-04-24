@@ -13,9 +13,6 @@
 #include "Belladonna.hpp"
 #include "HeracleumSosnowskyi.hpp"
 #include "Human.hpp"
-#define DEFAULT_WORLD_WIDTH 1
-#define DEFAULT_WORLD_HEIGHT 1
-#define DEFAULT_TURN 0
 
 World::World() : m_turn(DEFAULT_TURN), m_world_width(DEFAULT_WORLD_WIDTH), m_world_height(DEFAULT_WORLD_HEIGHT)
 {

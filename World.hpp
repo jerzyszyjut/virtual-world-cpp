@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 #include <Windows.h>
+#define DEFAULT_WORLD_WIDTH 1
+#define DEFAULT_WORLD_HEIGHT 1
+#define DEFAULT_TURN 0
 
 class Organism;
 enum Direction;
