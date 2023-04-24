@@ -2,8 +2,7 @@
 
 Organism& Guarana::clone()
 {
-    Organism* newGuarana = new Guarana(*this);
-	newGuarana->setAge(0);
+	Organism* newGuarana = new Guarana(m_coordinates, m_world);
 	return *newGuarana;
 }
 

@@ -2,7 +2,6 @@
 
 Organism& Grass::clone()
 {
-	Organism* newGrass = new Grass(*this);
-	newGrass->setAge(0);
+	Organism* newGrass = new Grass(m_coordinates, m_world);
 	return *newGrass;
 }

@@ -24,6 +24,14 @@ enum FightResult
 	DRAW
 };
 
+enum Direction {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	NONE
+};
+
 class World;
 
 class Organism
@@ -35,7 +43,7 @@ public:
 	Organism(Organism* other);
 	~Organism();
 
-	virtual void action() = 0;
+	virtual void action(Direction direction) = 0;
 	virtual bool collision(COORD newCoordinates) = 0;
 	void draw();
 

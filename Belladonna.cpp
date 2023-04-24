@@ -2,8 +2,7 @@
 
 Organism& Belladonna::clone()
 {
-	Organism* newOrganism = new Belladonna(*this);
-	newOrganism->setAge(0);
+	Organism* newOrganism = new Belladonna(m_coordinates, m_world);
 	return *newOrganism;
 }
 

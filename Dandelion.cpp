@@ -2,15 +2,14 @@
 
 Organism& Dandelion::clone()
 {
-	Organism* newDandelion = new Dandelion(*this);
-	newDandelion->setAge(0);
+	Organism* newDandelion = new Dandelion(m_coordinates, m_world);
 	return *newDandelion;
 }
 
-void Dandelion::action()
+void Dandelion::action(Direction direction)
 {
 	for (int i = 0; i < 3; i++)
 	{
-		Plant::action();
+		Plant::action(direction);
 	}
 }

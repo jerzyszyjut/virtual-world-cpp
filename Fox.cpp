@@ -2,12 +2,11 @@
 
 Organism& Fox::clone()
 {
-	Organism* newOrganism = new Fox(*this);
-	newOrganism->setAge(0);
+	Organism* newOrganism = new Fox(m_coordinates, m_world);
 	return *newOrganism;
 }
 
-void Fox::action()
+void Fox::action(Direction direction)
 {
 	COORD closestFreeSpace = findClosestFreeSpace(1);
 	if (closestFreeSpace.X == this->m_coordinates.X && closestFreeSpace.Y == this->m_coordinates.Y)

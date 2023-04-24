@@ -2,23 +2,27 @@
 #include <cstdlib>
 #include <typeinfo>
 
-void Animal::action()
+void Animal::action(Direction direction)
 {
-	int direction = rand() % 4;
+	if (direction == Direction::NONE)
+	{
+		direction = static_cast<Direction>(rand() % 4);
+	}
+
 	COORD newPosition = m_coordinates;
 	switch (direction)
 	{
-	case 0:
-		newPosition.X--;
-		break;
-	case 1:
-		newPosition.X++;
-		break;
-	case 2:
+	case UP:
 		newPosition.Y--;
 		break;
-	case 3:
+	case DOWN:
 		newPosition.Y++;
+		break;
+	case LEFT:
+		newPosition.X--;
+		break;
+	case RIGHT:
+		newPosition.X++;
 		break;
 	}
 

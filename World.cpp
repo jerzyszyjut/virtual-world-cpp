@@ -44,7 +44,7 @@ void World::nextTurn()
 	{
 		if (organism->isAlive())
 		{
-			organism->action();
+			organism->action(NONE);
 		}
 	}
 	removeDeadOrganisms();

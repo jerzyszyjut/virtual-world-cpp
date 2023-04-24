@@ -1,6 +1,6 @@
 #include "Plant.hpp"
 
-void Plant::action()
+void Plant::action(Direction direction)
 {
 	bool willSeed = (rand() % 100) < 10;
 	if (willSeed)

@@ -2,7 +2,6 @@
 
 Organism& Wolf::clone()
 {
-	Organism* clonedAnimal = new Wolf(*this);
-	clonedAnimal->setAge(0);
+	Organism* clonedAnimal = new Wolf(m_coordinates, m_world);
 	return *clonedAnimal;
 }

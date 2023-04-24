@@ -1,7 +1,7 @@
 #include "HeracleumSosnowskyi.hpp"
 #include "Animal.hpp"
 
-void HeracleumSosnowskyi::action()
+void HeracleumSosnowskyi::action(Direction direction)
 {
 	for (int i = -1; i <= 1; i++)
 	{
@@ -41,13 +41,12 @@ void HeracleumSosnowskyi::action()
 			}
 		}
 	}
-	Plant::action();
+	Plant::action(direction);
 }
 
 Organism& HeracleumSosnowskyi::clone()
 {
-	Organism* newOrganism = new HeracleumSosnowskyi(*this);
-	newOrganism->setAge(0);
+	Organism* newOrganism = new HeracleumSosnowskyi(m_coordinates, m_world);
 	return *newOrganism;
 }
 

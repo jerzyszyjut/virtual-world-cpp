@@ -6,7 +6,7 @@ class Turtle :
 {
 public:
     virtual Organism& clone() override;
-	virtual void action() override;
+	virtual void action(Direction direction) override;
 	bool collision(COORD coordinates) override;
 	virtual FightResult attack(Organism& other, bool isAttacked) override;
 	using Animal::Animal;

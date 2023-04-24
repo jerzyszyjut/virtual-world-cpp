@@ -2,17 +2,16 @@
 
 Organism& Turtle::clone()
 {
-	Organism* newOrganism = new Turtle(*this);
-	newOrganism->setAge(0);
+	Organism* newOrganism = new Turtle(m_coordinates, m_world);
 	return *newOrganism;
 }
 
-void Turtle::action()
+void Turtle::action(Direction direction)
 {
 	bool shouldItMove = ((rand() % 100) < 25);
 	if (shouldItMove)
 	{
-		Animal::action();
+		Animal::action(direction);
 	}
 }
 

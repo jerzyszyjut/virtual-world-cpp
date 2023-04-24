@@ -15,6 +15,7 @@
 
 void Simulator::loadFromFile()
 {
+	system("cls");
 	std::cout << "Loading save from file" << std::endl;
 	do 
 	{
@@ -27,6 +28,7 @@ void Simulator::loadFromFile()
 
 void Simulator::saveToFile()
 {
+	system("cls");
 	std::string filename;
 	std::cout << "Saving to file" << std::endl;
 	std::cout << "Input filename: " << std::endl;
@@ -65,7 +67,8 @@ Simulator::Simulator()
 void Simulator::run()
 {
 	int character;
-	while (true)
+	bool isRunning = true;
+	while (isRunning)
 	{
 		world.print();
 
@@ -93,6 +96,7 @@ void Simulator::run()
 			switch (character)
 			{
 			case ESCAPE:
+				isRunning = false;
 				break;
 			case KEY_L:
 				loadFromFile();

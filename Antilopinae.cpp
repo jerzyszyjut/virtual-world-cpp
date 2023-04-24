@@ -2,12 +2,11 @@
 
 Organism& Antilopinae::clone()
 {
-	Organism* clonedAnimal = new Antilopinae(*this);
-	clonedAnimal->setAge(0);
+	Organism* clonedAnimal = new Antilopinae(m_coordinates, m_world);
 	return *clonedAnimal;
 }
 
-void Antilopinae::action()
+void Antilopinae::action(Direction direction)
 {
 	COORD newPosition = m_coordinates;
 	for (int i = 0; i < 2; i++)
