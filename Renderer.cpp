@@ -35,14 +35,14 @@ Renderer::Renderer(int mapWidth, int mapHeight)
 	m_logs = std::vector<std::string>();
 }
 
-void Renderer::render()
+void Renderer::render(int cooldown)
 {
 	system("cls");
 	renderAutor();
 	renderBorder();
 	renderMap();
 	renderLogs();
-	renderLegend();
+	renderLegend(cooldown);
 	clearMap();
 	clearLogs();
 }
@@ -149,24 +149,27 @@ void Renderer::renderBorder()
 	}
 }
 
-void Renderer::renderLegend()
+void Renderer::renderLegend(int cooldown)
 {
 	COORD coord = { LEGEND_START_X, LEGEND_START_Y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 	std::cout << "Legend:";
 	coord = { LEGEND_START_X, LEGEND_START_Y + 1 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	std::cout << "X - Player";
+	std::cout << "Arrows - movement, SPACE - ability";
 	coord = { LEGEND_START_X, LEGEND_START_Y + 2 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	std::cout << "O - Enemy";
-	coord = { LEGEND_START_X, LEGEND_START_Y + 3 };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	std::cout << "W - Wall";
-	coord = { LEGEND_START_X, LEGEND_START_Y + 4 };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	std::cout << "F - Food";
-	coord = { LEGEND_START_X, LEGEND_START_Y + 5 };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-	std::cout << "S - Snake";
+	if (cooldown == 0)
+	{
+		std::cout << "Ability available";
+	}
+	else if(cooldown > 0)
+	{
+		std::cout << "Ability active for: " << cooldown;
+	}
+	else
+	{
+		std::cout << "Ability on cooldown for: " << -cooldown;
+	}
+
 }

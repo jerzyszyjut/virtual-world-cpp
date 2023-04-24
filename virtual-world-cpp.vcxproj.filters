@@ -73,7 +73,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Human.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Animals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,7 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Human.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Animals</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

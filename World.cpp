@@ -74,7 +74,14 @@ void World::print()
 	{
 		organism->draw();
 	}
-	m_renderer->render();
+	if (m_player == nullptr)
+	{
+		m_renderer->render(-5);
+	}
+	else
+	{
+		m_renderer->render(((Human*)m_player)->getCooldown());
+	}
 }
 
 int World::getTurn()

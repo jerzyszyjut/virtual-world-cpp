@@ -8,7 +8,7 @@ class Renderer
 public:
 	Renderer(int mapWidth, int mapHeight);
 
-	void render();
+	void render(int cooldown);
 	void addLog(std::string log);
 	void addMapElement(int x, int y, char c);
 	void clearMap();
@@ -19,7 +19,7 @@ private:
 	void renderLogs();
 	void renderMap();
 	void renderBorder();
-	void renderLegend();
+	void renderLegend(int cooldown);
 
 	int m_mapWidth, m_mapHeight;
 	std::vector<std::vector<char>> m_map;
