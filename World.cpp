@@ -12,18 +12,21 @@
 #include "Guarana.hpp"
 #include "Belladonna.hpp"
 #include "HeracleumSosnowskyi.hpp"
+#include "Human.hpp"
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
 	m_organisms = new std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
+	m_player = new Human({ 0, 0 }, *this);
 }
 
 World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_height(height)
 {
 	m_organisms = new std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
-	(*m_organisms)[0][0] = new Antilopinae({ 0, 0 }, *this);
+	m_player = new Human({ 0, 0 }, *this);
+	(*m_organisms)[0][0] = m_player;
 }
 
 void World::nextTurn()
@@ -33,7 +36,7 @@ void World::nextTurn()
 	{
 		for (int j = 0; j < m_world_height; j++)
 		{
-			if ((*m_organisms)[i][j] != nullptr)
+			if ((*m_organisms)[i][j] != nullptr && (*m_organisms)[i][j]->getSpecies() != HUMAN)
 			{
 				organisms.push_back((*m_organisms)[i][j]);
 			}
@@ -242,7 +245,7 @@ void World::loadOrganismsFromFile(std::string filename)
 			int age = std::stoi(line.substr(0, line.find(';')));
 			line = line.substr(line.find(';') + 1, line.length());
 			int x = std::stoi(line.substr(0, line.find(';')));
-			line = line.substr(line.find(';') + 1, line.length());	
+			line = line.substr(line.find(';') + 1, line.length());
 			int y = std::stoi(line.substr(0, line.find(';')));
 			COORD coordinates{ x, y };
 

@@ -34,5 +34,6 @@ public:
 private:
 	int m_turn, m_world_width, m_world_height;
 	std::vector<std::vector<Organism*>>* m_organisms;
+	Organism* m_player;
 };
 
