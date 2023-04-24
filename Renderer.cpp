@@ -171,5 +171,40 @@ void Renderer::renderLegend(int cooldown)
 	{
 		std::cout << "Ability on cooldown for: " << -cooldown;
 	}
-
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "H - Human";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 1 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "S - Sheep";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 2 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "W - Wolf";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 3 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "F - Fox";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 4 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "T - Turtle";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 5 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "A - Antelope";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 6 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "C - CyberSheep";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 7 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "G - Grass";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 8 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "D - Dandelion";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 9 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "O - Guarana";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 10 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "B - Belladonna";
+	coord = { LEGEND_START_X + 40, LEGEND_START_Y + 11 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	std::cout << "@ - Heracleum Sosnowskyi";
 }
