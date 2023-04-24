@@ -9,7 +9,7 @@
 #define MAP_START_Y 2
 #define MAP_BORDER_WIDTH 1
 #define MAX_MAP_SIZE 20
-#define MAX_MAP_SIZE_X MAX_MAP_SIZE 
+#define MAX_MAP_SIZE_X MAX_MAP_SIZE * 3
 #define MAX_MAP_SIZE_Y MAX_MAP_SIZE 
 #define LOGS_START_X MAP_START_X + MAX_MAP_SIZE_X + MAP_BORDER_WIDTH * 2
 #define LOGS_START_Y 1
@@ -35,12 +35,12 @@ Renderer::Renderer(int mapWidth, int mapHeight)
 	m_logs = std::vector<std::string>();
 }
 
-void Renderer::render(int cooldown)
+void Renderer::render(int cooldown, int cameraPositionX, int cameraPositionY)
 {
 	system("cls");
 	renderAutor();
 	renderBorder();
-	renderMap();
+	renderMap(cameraPositionX, cameraPositionY);
 	renderLogs();
 	renderLegend(cooldown);
 	clearMap();
@@ -49,8 +49,8 @@ void Renderer::render(int cooldown)
 
 void Renderer::addLog(std::string log)
 {
-	if(log != "")
-	m_logs.push_back(log);
+	if (log != "")
+		m_logs.push_back(log);
 }
 
 void Renderer::addMapElement(int x, int y, char c)
@@ -59,7 +59,7 @@ void Renderer::addMapElement(int x, int y, char c)
 	{
 		m_map[x][y] = c;
 	}
-	else 
+	else
 	{
 		throw std::exception("Out of map");
 	}
@@ -100,9 +100,8 @@ void Renderer::renderLogs()
 	}
 }
 
-void Renderer::renderMap()
+void Renderer::renderMap(int cameraPositionX, int cameraPositionY)
 {
-	int startX = 0, startY = 0;
 	int basicOffsetX = MAP_START_X, basicOffsetY = MAP_START_Y;
 	int width = m_mapWidth > MAX_MAP_SIZE_X ? MAX_MAP_SIZE_X : m_mapWidth;
 	int height = m_mapHeight > MAX_MAP_SIZE_Y ? MAX_MAP_SIZE_Y : m_mapHeight;
@@ -110,9 +109,7 @@ void Renderer::renderMap()
 	{
 		for (int j = 0; j < height; j++)
 		{
-			startX = basicOffsetX + i;
-			startY = basicOffsetY + j;
-			COORD coord = { startX, startY };
+			COORD coord = { basicOffsetX + i, basicOffsetY + j };
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 			std::cout << m_map[i][j];
 		}
@@ -131,17 +128,17 @@ void Renderer::renderBorder()
 	}
 	for (int i = 0; i < width + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = { MAP_START_X - 1 + i, MAP_START_X + m_mapHeight + 1 };
+		COORD coord = { MAP_START_X - 1 + i, MAP_START_X + height + 1 };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "-";
 	}
-	for (int i = 0; i < m_mapHeight + 2 * MAP_BORDER_WIDTH; i++)
+	for (int i = 0; i < height + 2 * MAP_BORDER_WIDTH; i++)
 	{
 		COORD coord = { MAP_START_X - 1, MAP_START_Y - 1 + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "|";
 	}
-	for (int i = 0; i < m_mapHeight + 2 * MAP_BORDER_WIDTH; i++)
+	for (int i = 0; i < height + 2 * MAP_BORDER_WIDTH; i++)
 	{
 		COORD coord = { MAP_START_X + width, MAP_START_Y - 1 + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -163,7 +160,7 @@ void Renderer::renderLegend(int cooldown)
 	{
 		std::cout << "Ability available";
 	}
-	else if(cooldown > 0)
+	else if (cooldown > 0)
 	{
 		std::cout << "Ability active for: " << cooldown;
 	}

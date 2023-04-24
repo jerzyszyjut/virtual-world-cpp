@@ -27,9 +27,9 @@ World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_h
 	m_renderer = new Renderer(m_world_width, m_world_height);
 	m_player = new Human({ 0, 0 }, *this);
 	(*m_organisms)[0][0] = m_player;
-	(*m_organisms)[5][5] = new Turtle({5, 5}, *this);
-	(*m_organisms)[7][7] = new Turtle({7, 7}, *this);
-	(*m_organisms)[9][9] = new Turtle({9, 9}, *this);
+	(*m_organisms)[5][5] = new Turtle({ 5, 5 }, *this);
+	(*m_organisms)[7][7] = new Turtle({ 7, 7 }, *this);
+	(*m_organisms)[9][9] = new Turtle({ 9, 9 }, *this);
 }
 
 void World::nextTurn()
@@ -76,11 +76,11 @@ void World::print()
 	}
 	if (m_player == nullptr)
 	{
-		m_renderer->render(-5);
+		m_renderer->render(-5, 0, 0);
 	}
 	else
 	{
-		m_renderer->render(((Human*)m_player)->getCooldown());
+		m_renderer->render(((Human*)m_player)->getCooldown(), m_player->getCoordinates().X, m_player->getCoordinates().Y);
 	}
 }
 

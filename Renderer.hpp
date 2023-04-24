@@ -8,7 +8,7 @@ class Renderer
 public:
 	Renderer(int mapWidth, int mapHeight);
 
-	void render(int cooldown);
+	void render(int cooldown, int cameraPositionX, int cameraPositionY);
 	void addLog(std::string log);
 	void addMapElement(int x, int y, char c);
 	void clearMap();
@@ -17,7 +17,7 @@ public:
 private:
 	void renderAutor();
 	void renderLogs();
-	void renderMap();
+	void renderMap(int cameraPositionX, int cameraPositionY);
 	void renderBorder();
 	void renderLegend(int cooldown);
 
