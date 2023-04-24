@@ -15,7 +15,7 @@ public:
 	void nextTurn();
 	void print();
 	int getTurn();
-	std::vector<std::vector<Organism*>>& getOrganisms();
+	std::vector<std::vector<Organism*>>* getOrganisms();
 	int getWidth();
 	int getHeight();
 	bool isInWorld(COORD coordinates);
@@ -33,6 +33,6 @@ public:
 
 private:
 	int m_turn, m_world_width, m_world_height;
-	std::vector<std::vector<Organism*>> m_organisms;
+	std::vector<std::vector<Organism*>>* m_organisms;
 };
 

@@ -1,17 +1,9 @@
-#include <iostream>
-#include "World.hpp"
+#include "Simulator.hpp"
 
 int main()
 {
-	World world(20, 20);
-	world.loadOrganismsFromFile("organisms.txt");
-	int i = 1000;
-	while (i--)
-	{
-		world.print();
-		world.nextTurn();
-		world.saveOrganismsToFile("organisms.txt");
-	}
+	Simulator simulator = Simulator();
+	simulator.run();
 
 	return 0;
 }

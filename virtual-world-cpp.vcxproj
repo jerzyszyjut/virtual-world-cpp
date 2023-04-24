@@ -139,6 +139,7 @@
     <ClInclude Include="Plant.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Sheep.hpp" />
+    <ClInclude Include="Simulator.hpp" />
     <ClInclude Include="Turtle.hpp" />
     <ClInclude Include="Wolf.hpp" />
     <ClInclude Include="World.hpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sheep.cpp" />
+    <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Turtle.cpp" />
     <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="World.cpp" />

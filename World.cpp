@@ -15,20 +15,15 @@
 
 World::World() : m_turn(0), m_world_width(0), m_world_height(0)
 {
-	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+	m_organisms = new std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
 }
 
 World::World(int width, int height) : m_turn(0), m_world_width(width), m_world_height(height)
 {
-	m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+	m_organisms = new std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
 	m_renderer = new Renderer(m_world_width, m_world_height);
-	m_organisms[0][0] = new Antilopinae({ 0, 0 }, *this);
-	m_organisms[5][1] = new Antilopinae({ 5, 1 }, *this);
-	m_organisms[5][2] = new Antilopinae({ 5, 2 }, *this);
-	m_organisms[5][3] = new Antilopinae({ 5, 3 }, *this);
-	m_organisms[5][4] = new Antilopinae({ 5, 4 }, *this);
-	m_organisms[0][1] = new HeracleumSosnowskyi({ 0, 1 }, *this);
+	(*m_organisms)[0][0] = new Antilopinae({ 0, 0 }, *this);
 }
 
 void World::nextTurn()
@@ -38,9 +33,9 @@ void World::nextTurn()
 	{
 		for (int j = 0; j < m_world_height; j++)
 		{
-			if (m_organisms[i][j] != nullptr)
+			if ((*m_organisms)[i][j] != nullptr)
 			{
-				organisms.push_back(m_organisms[i][j]);
+				organisms.push_back((*m_organisms)[i][j]);
 			}
 		}
 	}
@@ -63,9 +58,9 @@ void World::print()
 	{
 		for (int j = 0; j < m_world_height; j++)
 		{
-			if (m_organisms[i][j] != nullptr)
+			if ((*m_organisms)[i][j] != nullptr)
 			{
-				organisms.push_back(m_organisms[i][j]);
+				organisms.push_back((*m_organisms)[i][j]);
 			}
 		}
 	}
@@ -81,7 +76,7 @@ int World::getTurn()
 	return m_turn;
 }
 
-std::vector<std::vector<Organism*>>& World::getOrganisms()
+std::vector<std::vector<Organism*>>* World::getOrganisms()
 {
 	return m_organisms;
 }
@@ -109,7 +104,7 @@ bool World::isEmpty(COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.X][coordinates.Y] == nullptr || !(m_organisms[coordinates.X][coordinates.Y]->isAlive()))
+		if ((*m_organisms)[coordinates.X][coordinates.Y] == nullptr || !((*m_organisms)[coordinates.X][coordinates.Y]->isAlive()))
 		{
 			return true;
 		}
@@ -122,9 +117,9 @@ Organism& World::getOrganism(COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.X][coordinates.Y] != nullptr && m_organisms[coordinates.X][coordinates.Y]->isAlive())
+		if ((*m_organisms)[coordinates.X][coordinates.Y] != nullptr && (*m_organisms)[coordinates.X][coordinates.Y]->isAlive())
 		{
-			return *m_organisms[coordinates.X][coordinates.Y];
+			return *(*m_organisms)[coordinates.X][coordinates.Y];
 		}
 	}
 	throw std::invalid_argument("Coordinates are not in the world");
@@ -135,10 +130,10 @@ void World::removeOrganism(Organism& organism)
 	COORD coordinates = organism.getCoordinates();
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.X][coordinates.Y] != nullptr)
+		if ((*m_organisms)[coordinates.X][coordinates.Y] != nullptr)
 		{
-			delete m_organisms[coordinates.X][coordinates.Y];
-			m_organisms[coordinates.X][coordinates.Y] = nullptr;
+			delete (*m_organisms)[coordinates.X][coordinates.Y];
+			(*m_organisms)[coordinates.X][coordinates.Y] = nullptr;
 		}
 	}
 	else
@@ -153,11 +148,11 @@ void World::removeDeadOrganisms()
 	{
 		for (int j = 0; j < m_world_height; j++)
 		{
-			if (m_organisms[i][j] != nullptr)
+			if ((*m_organisms)[i][j] != nullptr)
 			{
-				if (!m_organisms[i][j]->isAlive())
+				if (!(*m_organisms)[i][j]->isAlive())
 				{
-					removeOrganism(*m_organisms[i][j]);
+					removeOrganism(*(*m_organisms)[i][j]);
 				}
 			}
 		}
@@ -168,9 +163,9 @@ void World::addOrganism(Organism& organism, COORD coordinates)
 {
 	if (isInWorld(coordinates))
 	{
-		if (m_organisms[coordinates.X][coordinates.Y] == nullptr)
+		if ((*m_organisms)[coordinates.X][coordinates.Y] == nullptr)
 		{
-			m_organisms[coordinates.X][coordinates.Y] = &organism;
+			(*m_organisms)[coordinates.X][coordinates.Y] = &organism;
 		}
 	}
 	else
@@ -184,11 +179,11 @@ void World::moveOrganism(Organism& organism, COORD coordinates)
 	COORD oldCoordinates = organism.getCoordinates();
 	if (isInWorld(oldCoordinates) && isInWorld(coordinates))
 	{
-		if (m_organisms[oldCoordinates.X][oldCoordinates.Y] != nullptr)
+		if ((*m_organisms)[oldCoordinates.X][oldCoordinates.Y] != nullptr)
 		{
-			m_organisms[coordinates.X][coordinates.Y] = m_organisms[oldCoordinates.X][oldCoordinates.Y];
-			m_organisms[oldCoordinates.X][oldCoordinates.Y] = nullptr;
-			m_organisms[coordinates.X][coordinates.Y]->setCoordinates(coordinates);
+			(*m_organisms)[coordinates.X][coordinates.Y] = (*m_organisms)[oldCoordinates.X][oldCoordinates.Y];
+			(*m_organisms)[oldCoordinates.X][oldCoordinates.Y] = nullptr;
+			(*m_organisms)[coordinates.X][coordinates.Y]->setCoordinates(coordinates);
 		}
 	}
 	else
@@ -207,14 +202,14 @@ void World::saveOrganismsToFile(std::string filename)
 		{
 			for (int j = 0; j < m_world_height; j++)
 			{
-				if (m_organisms[i][j] != nullptr)
+				if ((*m_organisms)[i][j] != nullptr && (*m_organisms)[i][j]->isAlive())
 				{
-					file << m_organisms[i][j]->getSpecies() << ";";
-					file << m_organisms[i][j]->getStrength() << ";";
-					file << m_organisms[i][j]->getInitiative() << ";";
-					file << m_organisms[i][j]->getAge() << ";";
-					file << m_organisms[i][j]->getCoordinates().X << ";";
-					file << m_organisms[i][j]->getCoordinates().Y << std::endl;
+					file << (*m_organisms)[i][j]->getSpecies() << ";";
+					file << (*m_organisms)[i][j]->getStrength() << ";";
+					file << (*m_organisms)[i][j]->getInitiative() << ";";
+					file << (*m_organisms)[i][j]->getAge() << ";";
+					file << (*m_organisms)[i][j]->getCoordinates().X << ";";
+					file << (*m_organisms)[i][j]->getCoordinates().Y << std::endl;
 				}
 			}
 		}
@@ -232,7 +227,10 @@ void World::loadOrganismsFromFile(std::string filename)
 		int height = std::stoi(line.substr(line.find(';') + 1, line.length()));
 		m_world_width = width;
 		m_world_height = height;
-		m_organisms = std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+		delete m_organisms;
+		m_organisms = new std::vector<std::vector<Organism*>>(m_world_width, std::vector<Organism*>(m_world_height, nullptr));
+		delete m_renderer;
+		m_renderer = new Renderer(m_world_width, m_world_height);
 		while (std::getline(file, line))
 		{
 			char symbol = std::stoi(line.substr(0, line.find(';')));

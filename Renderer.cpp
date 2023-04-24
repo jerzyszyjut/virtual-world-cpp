@@ -121,27 +121,29 @@ void Renderer::renderMap()
 
 void Renderer::renderBorder()
 {
-	for (int i = 0; i < MAX_MAP_SIZE_X + 2 * MAP_BORDER_WIDTH; i++)
+	int width = m_mapWidth > MAX_MAP_SIZE_X ? MAX_MAP_SIZE_X : m_mapWidth;
+	int height = m_mapHeight > MAX_MAP_SIZE_Y ? MAX_MAP_SIZE_Y : m_mapHeight;
+	for (int i = 0; i < width + 2 * MAP_BORDER_WIDTH; i++)
 	{
 		COORD coord = { MAP_START_X - 1 + i, MAP_START_Y - 1 };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "-";
 	}
-	for (int i = 0; i < MAX_MAP_SIZE_X + 2 * MAP_BORDER_WIDTH; i++)
+	for (int i = 0; i < width + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = { MAP_START_X - 1 + i, MAP_START_X + MAX_MAP_SIZE_Y + 1 };
+		COORD coord = { MAP_START_X - 1 + i, MAP_START_X + m_mapHeight + 1 };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "-";
 	}
-	for (int i = 0; i < MAX_MAP_SIZE_Y + 2 * MAP_BORDER_WIDTH; i++)
+	for (int i = 0; i < m_mapHeight + 2 * MAP_BORDER_WIDTH; i++)
 	{
 		COORD coord = { MAP_START_X - 1, MAP_START_Y - 1 + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "|";
 	}
-	for (int i = 0; i < MAX_MAP_SIZE_Y + 2 * MAP_BORDER_WIDTH; i++)
+	for (int i = 0; i < m_mapHeight + 2 * MAP_BORDER_WIDTH; i++)
 	{
-		COORD coord = { MAP_START_X + MAX_MAP_SIZE_X, MAP_START_Y - 1 + i };
+		COORD coord = { MAP_START_X + width, MAP_START_Y - 1 + i };
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		std::cout << "|";
 	}
