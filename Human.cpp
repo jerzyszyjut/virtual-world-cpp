@@ -41,6 +41,15 @@ bool Human::collision(COORD newCoordinates)
 					if (!m_world.isEmpty(neighbourCoordinates))
 					{
 						m_world.getOrganism(neighbourCoordinates).die();
+						std::string message = "";
+						message += "Human burned ";
+						message += m_world.getOrganism(neighbourCoordinates).getSpecies();
+						message += " at (";
+						message += std::to_string(neighbourCoordinates.X);
+						message += ", ";
+						message += std::to_string(neighbourCoordinates.Y);
+						message += ")";
+						m_world.m_renderer->addLog(message);
 					}
 				}
 			}
@@ -68,5 +77,8 @@ void Human::useAbility()
 	if (m_cooldown == 0)
 	{
 		m_cooldown = ABILITY_LENGTH;
+		std::string message = "";
+		message += "Human used ability";
+		m_world.m_renderer->addLog(message);
 	}
 }
